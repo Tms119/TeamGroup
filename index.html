@@ -76,7 +76,7 @@
     .menu-header-badge{font-family:'Space Mono',monospace;font-size:.56rem;letter-spacing:.22em;color:rgba(255,255,255,.45);padding:4px 12px;border-radius:20px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);margin-left:14px}
     @media(max-width:768px){.menu-header-badge{display:none}}
     
-    #menu-close{display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:40px;padding:9px 20px;font-family:'Space Mono',monospace;font-size:.66rem;letter-spacing:.18em;color:var(--white);cursor:pointer;transition:all .25s ease}
+    #menu-close{display:inline-flex;align-items:center;justify-content:center;min-height:44px;gap:10px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:40px;padding:9px 20px;font-family:'Space Mono',monospace;font-size:.66rem;letter-spacing:.18em;color:var(--white);cursor:pointer;transition:all .25s ease}
     #menu-close:hover{background:var(--red);border-color:var(--red);transform:scale(1.03)}
     .mc-icon{font-size:.78rem;color:var(--red);transition:color .25s ease}
     #menu-close:hover .mc-icon{color:var(--white)}
@@ -124,6 +124,26 @@
     .of-social-tag{font-family:'Space Mono',monospace;font-size:.58rem;letter-spacing:.2em;color:rgba(255,255,255,.32);margin-right:2px}
     .of-social-link{display:inline-flex;align-items:center;gap:6px;font-family:'Space Mono',monospace;font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.8);text-decoration:none;padding:7px 16px;border-radius:30px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);transition:all .25s ease}
     .of-social-link:hover{background:var(--white);color:#0B1017;border-color:var(--white);transform:translateY(-1px)}
+    .menu-simple-body{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(260px,.8fr);gap:clamp(40px,8vw,140px);align-items:start;padding:clamp(48px,8vh,110px) 0}
+    .menu-simple-intro{max-width:520px}
+    .menu-simple-kicker{font-family:'Space Mono',monospace;font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:var(--red);margin-bottom:22px}
+    .menu-simple-title{font-family:'DM Serif Display',serif;font-size:clamp(2.4rem,5vw,5.5rem);font-weight:400;line-height:1;letter-spacing:-.025em;color:#fff;margin-bottom:24px}
+    .menu-simple-title em{color:#ff737b}
+    .menu-simple-copy{max-width:390px;color:rgba(255,255,255,.48);font-size:.9rem;line-height:1.75}
+    .menu-simple-nav{display:flex;flex-direction:column}
+    .menu-simple-link{display:flex;align-items:center;gap:18px;padding:15px 0;border-bottom:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.78);transition:color .25s,padding-left .25s}
+    .menu-simple-link:first-child{border-top:1px solid rgba(255,255,255,.1)}
+    .menu-simple-link:hover,.menu-simple-link:focus-visible{color:#fff;padding-left:10px;outline:none}
+    .menu-simple-num{font-family:'Space Mono',monospace;font-size:.56rem;color:var(--red);letter-spacing:.14em}
+    .menu-simple-label{font-size:clamp(1.15rem,2vw,1.7rem);font-weight:300}
+    .menu-simple-arrow{margin-left:auto;color:var(--red);font-size:1.1rem}
+    .menu-simple-contact{border-top:1px solid rgba(255,255,255,.1);padding-top:20px;margin-top:28px;display:flex;flex-direction:column;gap:10px}
+    .menu-simple-contact-label{font-family:'Space Mono',monospace;font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.35)}
+    .menu-simple-contact a{font-size:.9rem;color:#fff;transition:color .25s}.menu-simple-contact a:hover{color:#ff737b}
+    .menu-simple-cta{display:inline-flex;align-items:center;justify-content:center;gap:12px;margin-top:28px;padding:13px 18px;background:#fff;color:#0b1017;font-size:.75rem;font-weight:600;letter-spacing:.04em;border-radius:4px;transition:background .25s,color .25s,transform .25s}
+    .menu-simple-cta:hover,.menu-simple-cta:focus-visible{background:var(--red);color:#fff;transform:translateY(-2px);outline:none}
+    @media(max-width:960px){.menu-simple-body{grid-template-columns:1fr;gap:42px;padding:38px 0}.menu-simple-intro{max-width:620px}.menu-simple-title{font-size:clamp(2.3rem,8vw,4rem)}}
+    @media(max-width:600px){#menu-overlay{padding:16px 20px 20px}.menu-overlay-header{padding-bottom:10px}.menu-simple-body{gap:18px;padding:18px 0}.menu-simple-title{font-size:2.25rem;margin-bottom:10px}.menu-simple-kicker{margin-bottom:14px}.menu-simple-copy{font-size:.78rem;line-height:1.45}.menu-simple-link{padding:10px 0}.menu-simple-label{font-size:1rem}.menu-simple-contact{margin-top:14px;padding-top:14px;gap:7px}.menu-simple-cta{width:100%;margin-top:14px;padding:11px 16px}.menu-simple-footer{display:none}}
 
     /* ─── HERO (Cinematic Documentary) ──── */
     #hero-container{height:100vh;position:relative;background:#060A10;overflow:hidden}
@@ -686,113 +706,37 @@
 
 <!-- MENU OVERLAY -->
 <div id="menu-overlay" role="dialog" aria-label="Site navigation" aria-modal="true">
-  <!-- Top Architectural Bar -->
   <div class="menu-overlay-header">
     <div class="tb-logo-lockup">
       <div class="tb-logo-mark" aria-hidden="true"></div>
       <span class="tb-logo-text">TEAM GROUP</span>
-      <span class="menu-header-badge">ENTERPRISE DIRECTORY</span>
     </div>
     <button id="menu-close" aria-label="Close navigation">
-      <span>CLOSE</span>
+      <span>Close</span>
       <span class="mc-icon" aria-hidden="true">✕</span>
     </button>
   </div>
 
-  <!-- Central 2-Column Architectural Body -->
-  <div class="menu-overlay-body">
-    <!-- Left: Navigation Architecture -->
-    <div class="menu-nav-col">
-      <div class="menu-sec-label">// DIRECTORY INDEX</div>
-      <nav class="overlay-nav" aria-label="Main navigation">
-        <a href="#story" class="overlay-link">
-          <span class="overlay-link-num">01</span>
-          <span class="overlay-link-title">The Group <em>/ Heritage &amp; Vision</em></span>
-          <span class="overlay-link-arr" aria-hidden="true">→</span>
-        </a>
-        <a href="#deck-container" class="overlay-link">
-          <span class="overlay-link-num">02</span>
-          <span class="overlay-link-title">Portfolio <em>/ Multi-Sector Capabilities</em></span>
-          <span class="overlay-link-arr" aria-hidden="true">→</span>
-        </a>
-        <a href="#impact-container" class="overlay-link">
-          <span class="overlay-link-num">03</span>
-          <span class="overlay-link-title">Sovereignty &amp; ESG <em>/ LEED Platinum</em></span>
-          <span class="overlay-link-arr" aria-hidden="true">→</span>
-        </a>
-        <a href="#news" class="overlay-link">
-          <span class="overlay-link-num">04</span>
-          <span class="overlay-link-title">Intelligence <em>/ Dispatches &amp; Insights</em></span>
-          <span class="overlay-link-arr" aria-hidden="true">→</span>
-        </a>
-        <a href="#careers-cta" class="overlay-link">
-          <span class="overlay-link-num">05</span>
-          <span class="overlay-link-title">Human Capital <em>/ 20,000+ Strong</em></span>
-          <span class="overlay-link-arr" aria-hidden="true">→</span>
-        </a>
-        <a href="#contact" class="overlay-link">
-          <span class="overlay-link-num">06</span>
-          <span class="overlay-link-title">Partnership Desk <em>/ Direct Inquiries</em></span>
-          <span class="overlay-link-arr" aria-hidden="true">→</span>
-        </a>
-      </nav>
+  <div class="menu-simple-body">
+    <div class="menu-simple-intro">
+      <div class="menu-simple-kicker">Team Group / Bangladesh to the world</div>
+      <h2 class="menu-simple-title">Where should we<br><em>take you?</em></h2>
+      <p class="menu-simple-copy">Explore the group, our capabilities, our impact, or start a direct conversation with the team.</p>
+      <div class="menu-simple-contact">
+        <span class="menu-simple-contact-label">Direct contact</span>
+        <a href="mailto:info@team.com.bd">info@team.com.bd</a>
+        <a href="tel:+880258956520">+880 2 58956520</a>
+      </div>
+      <a href="#contact" class="menu-simple-cta">Start a conversation <span aria-hidden="true">↗</span></a>
     </div>
-
-    <!-- Right: Executive Liaison & Corridors -->
-    <div class="menu-info-col">
-      <div class="menu-sec-label">// EXECUTIVE LIAISON</div>
-
-      <!-- Card: Headquarters -->
-      <div class="menu-info-card">
-        <div class="mic-tag">Global Headquarters</div>
-        <div class="mic-val">ABC Heritage (5th Floor), Plot 2 &amp; 4, Jashimuddin Avenue, Sector 3, Uttara C/A, Dhaka-1230, Bangladesh</div>
-        <div class="mic-meta">COORDINATES: 23.8687° N, 90.3984° E · GMT+6</div>
-      </div>
-
-      <!-- Card: Direct Communications (Clean Pills, Completely Separated) -->
-      <div class="menu-info-card">
-        <div class="mic-tag">Direct Lines &amp; Official Inquiries</div>
-        <div class="menu-contact-grid">
-          <a href="tel:+880258956520" class="menu-contact-pill" aria-label="Telephone contact">
-            <span class="mcp-icon">✆</span>
-            <span class="mcp-text">+880 2 58956520</span>
-            <span class="mcp-sub">HQ Switchboard</span>
-          </a>
-          <a href="mailto:info@team.com.bd" class="menu-contact-pill email" aria-label="Email contact">
-            <span class="mcp-icon">✉</span>
-            <span class="mcp-text">info@team.com.bd</span>
-            <span class="mcp-sub">Direct Inquiries</span>
-          </a>
-        </div>
-        <div class="mic-note">Executive dispatch · Responses guaranteed within 24 business hours</div>
-      </div>
-
-      <!-- Card: International Corridors -->
-      <div class="menu-info-card">
-        <div class="mic-tag">International Corridors</div>
-        <div class="mic-hubs">
-          <span class="mic-hub-pill">🇩🇪 Frankfurt</span>
-          <span class="mic-hub-pill">🇬🇧 London</span>
-          <span class="mic-hub-pill">🇪🇸 Madrid</span>
-          <span class="mic-hub-pill">🇮🇹 Milan</span>
-          <span class="mic-hub-pill">🇭🇰 Hong Kong</span>
-        </div>
-      </div>
-    </div>
+    <nav class="menu-simple-nav" aria-label="Main navigation">
+      <a class="menu-simple-link" href="#story"><span class="menu-simple-num">01</span><span class="menu-simple-label">Our story</span><span class="menu-simple-arrow" aria-hidden="true">↗</span></a>
+      <a class="menu-simple-link" href="#deck-container"><span class="menu-simple-num">02</span><span class="menu-simple-label">Capabilities</span><span class="menu-simple-arrow" aria-hidden="true">↗</span></a>
+      <a class="menu-simple-link" href="#impact-container"><span class="menu-simple-num">03</span><span class="menu-simple-label">Our impact</span><span class="menu-simple-arrow" aria-hidden="true">↗</span></a>
+      <a class="menu-simple-link" href="#news"><span class="menu-simple-num">04</span><span class="menu-simple-label">Stories &amp; news</span><span class="menu-simple-arrow" aria-hidden="true">↗</span></a>
+    </nav>
   </div>
-
-  <!-- Bottom Footer: Clean Two-Column Flex, Zero Overlap Guaranteed -->
-  <div class="overlay-footer">
-    <div class="of-col-left">
-      <div class="of-copy">© 2026 TEAM GROUP BD · BUILT IN BANGLADESH. TRUSTED BY THE WORLD.</div>
-      <div class="of-subcopy">LEED PLATINUM ACCREDITED · ALL RIGHTS RESERVED</div>
-    </div>
-    <div class="of-col-right">
-      <span class="of-social-tag">CONNECT:</span>
-      <a href="https://www.facebook.com/teamgroupbd" target="_blank" rel="noopener" class="of-social-link" aria-label="Facebook Profile">FACEBOOK ↗</a>
-      <a href="https://www.linkedin.com/company/team-group-bd" target="_blank" rel="noopener" class="of-social-link" aria-label="LinkedIn Profile">LINKEDIN ↗</a>
-    </div>
-  </div>
+  <div class="overlay-footer menu-simple-footer"><div class="of-copy">© 2026 TEAM GROUP BD</div><div class="of-subcopy">BUILT IN BANGLADESH · TRUSTED BY THE WORLD</div></div>
 </div>
 
 <!-- SIDE NAV DOTS -->
