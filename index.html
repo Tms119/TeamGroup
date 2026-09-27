@@ -2076,10 +2076,10 @@ function saveToHistory(id) {
 saveToHistory(sessionId);
 
 const GREETINGS = {
-  en: "Hey there! 👋 I'm Alex from Team Group's export team. What can I help you with today?",
-  bn: "হ্যালো! 👋 আমি Alex, Team Group-এর এক্সপোর্ট টিম থেকে। আজ আপনাকে কীভাবে সাহায্য করতে পারি?",
-  fr: "Bonjour ! 👋 Je suis Alex de l'équipe export de Team Group. Comment puis-je vous aider aujourd'hui ?",
-  es: "¡Hola! 👋 Soy Alex del equipo de exportación de Team Group. ¿En qué puedo ayudarte hoy?"
+  en: "Hey there! 👋 I'm Hasan from Team Group's export team. What can I help you with today?",
+  bn: "হ্যালো! 👋 আমি Hasan, Team Group-এর এক্সপোর্ট টিম থেকে। আজ আপনাকে কীভাবে সাহায্য করতে পারি?",
+  fr: "Bonjour ! 👋 Je suis Hasan de l'équipe export de Team Group. Comment puis-je vous aider aujourd'hui ?",
+  es: "¡Hola! 👋 Soy Hasan del equipo de exportación de Team Group. ¿En qué puedo ayudarte hoy?"
 };
 
 const PLACEHOLDERS = {
@@ -2159,38 +2159,42 @@ let isWaitingForBot = false;
 let isFirstRender = true;
 
 function renderMessages(messages) {
-  // Only re-render if the number of messages changed, or if we need to clear the typing indicator
+  // Only process if we have new messages or need to clear typing state
   if (!isFirstRender && messages.length === lastMsgCount && !isWaitingForBot) {
     return;
   }
 
-  // Check if user is currently scrolled to the bottom (within 50px)
   const isAtBottom = conciergeMessages.scrollHeight - conciergeMessages.scrollTop - conciergeMessages.clientHeight < 50;
 
-  conciergeMessages.innerHTML = '';
+  if (isFirstRender) {
+    conciergeMessages.innerHTML = '';
+    // greeting
+    conciergeMessages.appendChild(createMsgRow(GREETINGS[currentLang] || GREETINGS.en, false, null));
+  }
 
-  // greeting
-  conciergeMessages.appendChild(createMsgRow(GREETINGS[currentLang] || GREETINGS.en, false, null));
+  // Remove typing indicator if it exists so it doesn't get stuck in the middle
+  hideTypingIndicator();
 
-  messages.forEach(msg => {
-    conciergeMessages.appendChild(createMsgRow(msg.content, msg.sender === 'visitor', msg._creationTime));
-  });
+  // Append only new messages
+  if (messages.length > lastMsgCount) {
+    const newMessages = messages.slice(lastMsgCount);
+    newMessages.forEach(msg => {
+      conciergeMessages.appendChild(createMsgRow(msg.content, msg.sender === 'visitor', msg._creationTime));
+    });
+  }
 
-  // If we're waiting and the last message is still from the visitor, show typing
+  // If we're waiting and the last message is still from the visitor, show typing again at the bottom
   const lastMsg = messages[messages.length - 1];
   if (isWaitingForBot && lastMsg && lastMsg.sender === 'visitor') {
     showTypingIndicator();
   } else {
     isWaitingForBot = false;
-    hideTypingIndicator();
   }
 
-  // Hide quick replies once conversation has messages
   if (messages.length > 0 && conciergeQuick) {
     conciergeQuick.style.display = 'none';
   }
 
-  // Only auto-scroll to bottom if they were already at the bottom, or if this is the first render, or if they just sent a message
   if (isAtBottom || isFirstRender || isWaitingForBot) {
     conciergeMessages.scrollTop = conciergeMessages.scrollHeight;
   }
