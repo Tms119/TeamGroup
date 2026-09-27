@@ -629,23 +629,25 @@
     .concierge-messages.hidden, .concierge-form.hidden, .concierge-quick.hidden{display:none !important}
     .concierge-messages{display:flex;flex-direction:column;gap:16px;padding:20px;overflow-y:auto;flex:1 1 0%;min-height:0;scroll-behavior:smooth}
     .concierge-messages::-webkit-scrollbar{width:4px}.concierge-messages::-webkit-scrollbar-track{background:transparent}.concierge-messages::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:4px}
-    .concierge-msg-row{display:flex;gap:10px;align-items:flex-start;animation:msgSlide .35s cubic-bezier(.16,1,.3,1) both}
+    .concierge-msg-row{display:flex;gap:10px;align-items:flex-start}
     .concierge-msg-row.user{justify-content:flex-end}
-    @keyframes msgSlide{from{opacity:0;transform:translateY(8px)}}
-    .concierge-msg-avatar{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#D42B35,#ff5c66);display:grid;place-items:center;flex-shrink:0;margin-bottom:2px}
-    .concierge-msg-col{display:flex;flex-direction:column;max-width:78%;align-items:flex-start}
-    .concierge-msg-row.user .concierge-msg-col{align-items:flex-end}
+    .concierge-msg-avatar{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#D42B35,#ff5c66);display:grid;place-items:center;flex-shrink:0;margin-bottom:2px;animation:avatarPop .35s cubic-bezier(.34,1.56,.64,1) both}
+    @keyframes avatarPop{from{transform:scale(0);opacity:0}to{transform:scale(1);opacity:1}}
+    .concierge-msg-col{display:flex;flex-direction:column;max-width:78%;align-items:flex-start;transform-origin:bottom left;animation:bubbleSpring .45s cubic-bezier(.34,1.56,.64,1) .1s both}
+    .concierge-msg-row.user .concierge-msg-col{align-items:flex-end;transform-origin:bottom right}
+    @keyframes bubbleSpring{from{transform:scale(.75) translateY(10px);opacity:0}to{transform:scale(1) translateY(0);opacity:1}}
     .concierge-message{padding:12px 16px;border-radius:4px 16px 16px 16px;font-size:.8rem;line-height:1.6;color:rgba(255,255,255,.88);background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.05);word-break:break-word}
     .concierge-msg-row.user .concierge-message{border-radius:16px 4px 16px 16px;background:linear-gradient(135deg,#D42B35,#c92430);color:#fff;border:none}
     .concierge-message a{color:#ff9da1;text-decoration:underline;text-underline-offset:3px}
     .concierge-msg-row.user .concierge-message a{color:rgba(255,255,255,.85)}
     .concierge-msg-time{font-size:.48rem;color:rgba(255,255,255,.25);margin-top:4px;font-family:'Space Mono',monospace;letter-spacing:.05em}
     .concierge-msg-row.user .concierge-msg-time{text-align:right}
-    .concierge-typing{display:flex;gap:4px;padding:12px 16px;align-items:center}
-    .concierge-typing span{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.3);animation:typingBounce 1.4s ease-in-out infinite}
+    .concierge-typing{display:flex;gap:4px;padding:12px 16px;align-items:center;background:rgba(255,255,255,.05);border-radius:4px 16px 16px 16px;animation:typingPulse 2s infinite ease-in-out;border:1px solid rgba(255,255,255,.02)}
+    .concierge-typing span{width:6px;height:6px;border-radius:50%;background:#fff;animation:typingWave 1.4s infinite ease-in-out;opacity:.3}
     .concierge-typing span:nth-child(2){animation-delay:.2s}
     .concierge-typing span:nth-child(3){animation-delay:.4s}
-    @keyframes typingBounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-6px)}}
+    @keyframes typingWave{0%,100%{transform:translateY(0);opacity:.3}50%{transform:translateY(-5px);opacity:1;box-shadow:0 0 8px rgba(255,255,255,.6)}}
+    @keyframes typingPulse{0%,100%{background:rgba(255,255,255,.05)}50%{background:rgba(255,255,255,.09)}}
     .concierge-quick{display:flex;flex-wrap:wrap;gap:6px;padding:0 20px 16px}
     .concierge-quick button{border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:8px 14px;color:rgba(255,255,255,.65);font-size:.68rem;cursor:pointer;background:rgba(255,255,255,.04);transition:all .25s ease;backdrop-filter:blur(4px)}
     .concierge-quick button:hover,.concierge-quick button:focus-visible{border-color:rgba(212,43,53,.5);color:#fff;background:rgba(212,43,53,.12);outline:none;transform:translateY(-1px)}
@@ -656,6 +658,8 @@
     .concierge-form button[type="submit"]{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,#D42B35,#ff5c66);color:#fff;font-size:1rem;cursor:pointer;display:grid;place-items:center;transition:transform .2s,box-shadow .2s;border:none}
     .concierge-form button[type="submit"]:hover,.concierge-form button[type="submit"]:focus-visible{transform:scale(1.05);box-shadow:0 4px 16px rgba(212,43,53,.4);outline:none}
     .concierge-form button[type="submit"]:active{transform:scale(.95)}
+    .concierge-form button[type="submit"].sending{animation:flyAway .45s ease forwards}
+    @keyframes flyAway{0%{transform:translateY(0) scale(1);opacity:1}40%{transform:translateY(-16px) scale(.8);opacity:0}41%{transform:translateY(16px) scale(.8);opacity:0}100%{transform:translateY(0) scale(1);opacity:1}}
     .concierge-powered{text-align:center;padding:6px 0;font-size:.48rem;color:rgba(255,255,255,.2);letter-spacing:.08em;font-family:'Space Mono',monospace}
     @media(max-width:700px){.concierge-launcher{right:16px;bottom:16px;width:56px;height:56px}.concierge-panel{right:0;bottom:0;width:100vw;height:100vh;border-radius:0;border:none}}
     @media(max-width:768px){
@@ -2309,6 +2313,13 @@ import("https://esm.sh/convex@1.14.3/browser").then(({ ConvexHttpClient }) => {
       event.preventDefault();
       const text = conciergeInput.value.trim();
       if(!text) return;
+      
+      const submitBtn = conciergeForm.querySelector('button[type="submit"]');
+      if(submitBtn) {
+        submitBtn.classList.add('sending');
+        setTimeout(() => submitBtn.classList.remove('sending'), 450);
+      }
+      
       conciergeInput.value = '';
       sendUserMessage(text);
     });
