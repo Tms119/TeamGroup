@@ -599,7 +599,7 @@
     .concierge-launcher svg{width:26px;height:26px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
     .concierge-pulse{position:absolute;inset:-6px;border:2px solid rgba(212,43,53,.4);border-radius:50%;animation:conciergePulse 2.8s ease-out infinite;pointer-events:none}
     @keyframes conciergePulse{0%{opacity:.6;transform:scale(.85)}70%{opacity:0;transform:scale(1.3)}100%{opacity:0;transform:scale(1.3)}}
-    .concierge-panel{position:fixed;right:24px;bottom:100px;width:min(400px,calc(100vw - 40px));max-height:min(640px,calc(100vh - 140px));background:rgba(12,18,28,.92);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);color:#fff;border:1px solid rgba(255,255,255,.1);border-radius:20px;z-index:9200;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,.45),0 0 0 1px rgba(255,255,255,.05) inset;opacity:0;visibility:hidden;transform:translateY(20px) scale(.96);transform-origin:bottom right;transition:opacity .32s ease,transform .32s cubic-bezier(.16,1,.3,1),visibility .32s}
+    .concierge-panel{position:fixed;right:24px;bottom:100px;width:min(400px,calc(100vw - 40px));height:min(600px,calc(100vh - 140px));background:rgba(12,18,28,.95);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);color:#fff;border:1px solid rgba(255,255,255,.1);border-radius:20px;z-index:9200;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,.45),0 0 0 1px rgba(255,255,255,.05) inset;opacity:0;visibility:hidden;transform:translateY(20px) scale(.96);transform-origin:bottom right;transition:opacity .32s ease,transform .32s cubic-bezier(.16,1,.3,1),visibility .32s}
     .concierge-panel.open{opacity:1;visibility:visible;transform:none}
     .concierge-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid rgba(255,255,255,.07);background:linear-gradient(135deg,rgba(22,34,48,.95),rgba(12,18,28,.95))}
     .concierge-header-left{display:flex;align-items:center;gap:12px}
@@ -613,14 +613,14 @@
     .concierge-lang-select{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:8px;color:rgba(255,255,255,.7);font-size:.62rem;padding:4px 6px;cursor:pointer;font-family:'Space Mono',monospace;letter-spacing:.05em;transition:border-color .2s,color .2s;-webkit-appearance:none;appearance:none}
     .concierge-lang-select:hover,.concierge-lang-select:focus{border-color:rgba(212,43,53,.5);color:#fff;outline:none}
     .concierge-close{width:32px;height:32px;color:rgba(255,255,255,.5);font-size:1.1rem;cursor:pointer;border-radius:8px;display:grid;place-items:center;transition:background .2s,color .2s}.concierge-close:hover,.concierge-close:focus-visible{background:rgba(255,255,255,.08);color:#fff;outline:none}
-    .concierge-messages{display:flex;flex-direction:column;gap:16px;padding:20px;overflow-y:auto;flex:1;min-height:220px;scroll-behavior:smooth}
+    .concierge-messages{display:flex;flex-direction:column;gap:16px;padding:20px;overflow-y:auto;flex:1 1 0%;min-height:0;scroll-behavior:smooth}
     .concierge-messages::-webkit-scrollbar{width:4px}.concierge-messages::-webkit-scrollbar-track{background:transparent}.concierge-messages::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:4px}
-    .concierge-msg-row{display:flex;gap:8px;align-items:flex-end;animation:msgSlide .35s cubic-bezier(.16,1,.3,1) both}
-    .concierge-msg-row.user{flex-direction:row-reverse}
+    .concierge-msg-row{display:flex;gap:10px;align-items:flex-start;animation:msgSlide .35s cubic-bezier(.16,1,.3,1) both}
+    .concierge-msg-row.user{justify-content:flex-end}
     @keyframes msgSlide{from{opacity:0;transform:translateY(8px)}}
     .concierge-msg-avatar{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#D42B35,#ff5c66);display:grid;place-items:center;font-size:.5rem;font-weight:700;flex-shrink:0;margin-bottom:2px}
-    .concierge-message{max-width:82%;padding:12px 16px;border-radius:16px 16px 16px 4px;font-size:.8rem;line-height:1.6;color:rgba(255,255,255,.88);background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.05);word-wrap:break-word}
-    .concierge-msg-row.user .concierge-message{border-radius:16px 16px 4px 16px;background:linear-gradient(135deg,#D42B35,#c92430);color:#fff;border:none}
+    .concierge-message{max-width:78%;padding:12px 16px;border-radius:4px 16px 16px 16px;font-size:.8rem;line-height:1.6;color:rgba(255,255,255,.88);background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.05);word-wrap:break-word}
+    .concierge-msg-row.user .concierge-message{border-radius:16px 4px 16px 16px;background:linear-gradient(135deg,#D42B35,#c92430);color:#fff;border:none}
     .concierge-message a{color:#ff9da1;text-decoration:underline;text-underline-offset:3px}
     .concierge-msg-row.user .concierge-message a{color:rgba(255,255,255,.85)}
     .concierge-msg-time{font-size:.48rem;color:rgba(255,255,255,.25);margin-top:4px;font-family:'Space Mono',monospace;letter-spacing:.05em}
@@ -641,7 +641,7 @@
     .concierge-form button[type="submit"]:hover,.concierge-form button[type="submit"]:focus-visible{transform:scale(1.05);box-shadow:0 4px 16px rgba(212,43,53,.4);outline:none}
     .concierge-form button[type="submit"]:active{transform:scale(.95)}
     .concierge-powered{text-align:center;padding:6px 0;font-size:.48rem;color:rgba(255,255,255,.2);letter-spacing:.08em;font-family:'Space Mono',monospace}
-    @media(max-width:700px){.concierge-launcher{right:16px;bottom:16px;width:56px;height:56px}.concierge-panel{right:0;bottom:0;width:100vw;max-height:100vh;border-radius:0;border:none}}
+    @media(max-width:700px){.concierge-launcher{right:16px;bottom:16px;width:56px;height:56px}.concierge-panel{right:0;bottom:0;width:100vw;height:100vh;border-radius:0;border:none}}
     @media(max-width:768px){
       .tl-item,.news-card.from-left,.news-card.from-right,.news-card.from-below,#contact-top,.d-card-dark,.d-card-light,.careers-sub,.ch-div-sub,.ch-div-title,.ch-div-line,.ch-div-mark{opacity:1;transform:none}
       .ifp-content{opacity:1;transform:none}
