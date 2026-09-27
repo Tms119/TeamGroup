@@ -612,9 +612,16 @@
     .concierge-header-actions{display:flex;align-items:center;gap:4px}
     .concierge-lang-select{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);border-radius:6px;color:#fff;font-size:.68rem;padding:6px 20px 6px 10px;cursor:pointer;font-family:'Space Mono',monospace;letter-spacing:.05em;transition:border-color .2s,background .2s;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 4px center;box-shadow:0 2px 8px rgba(0,0,0,.2)}
     .concierge-lang-select:hover,.concierge-lang-select:focus{background:rgba(255,255,255,.2);border-color:rgba(212,43,53,.8);outline:none;box-shadow:0 0 0 2px rgba(212,43,53,.3)}
-    .concierge-close, .concierge-new{width:32px;height:32px;color:rgba(255,255,255,.5);font-size:1.1rem;cursor:pointer;border-radius:8px;display:grid;place-items:center;transition:background .2s,color .2s;background:transparent;border:none}
-    .concierge-close:hover,.concierge-close:focus-visible,.concierge-new:hover,.concierge-new:focus-visible{background:rgba(255,255,255,.08);color:#fff;outline:none}
-    .concierge-new svg{width:16px;height:16px}
+    .concierge-close, .concierge-icon-btn{width:32px;height:32px;color:rgba(255,255,255,.6);font-size:1.1rem;cursor:pointer;border-radius:8px;display:grid;place-items:center;transition:background .2s,color .2s;background:transparent;border:none}
+    .concierge-close:hover,.concierge-close:focus-visible,.concierge-icon-btn:hover,.concierge-icon-btn:focus-visible{background:rgba(255,255,255,.08);color:#fff;outline:none}
+    .concierge-icon-btn svg{width:16px;height:16px}
+    .concierge-history-panel{display:none;flex-direction:column;flex:1;overflow-y:auto;padding:12px;gap:8px;background:rgba(0,0,0,.15)}
+    .concierge-history-panel.active{display:flex}
+    .concierge-history-item{padding:12px 16px;background:var(--card, rgba(255,255,255,.05));border:1px solid var(--border, rgba(255,255,255,.05));border-radius:12px;cursor:pointer;transition:background .2s}
+    .concierge-history-item:hover{background:rgba(255,255,255,.1)}
+    .concierge-history-title{font-size:.8rem;font-weight:600;margin-bottom:4px;color:#fff}
+    .concierge-history-date{font-size:.65rem;color:rgba(255,255,255,.5)}
+    .concierge-messages.hidden, .concierge-form.hidden, .concierge-quick.hidden{display:none !important}
     .concierge-messages{display:flex;flex-direction:column;gap:16px;padding:20px;overflow-y:auto;flex:1 1 0%;min-height:0;scroll-behavior:smooth}
     .concierge-messages::-webkit-scrollbar{width:4px}.concierge-messages::-webkit-scrollbar-track{background:transparent}.concierge-messages::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:4px}
     .concierge-msg-row{display:flex;gap:10px;align-items:flex-start;animation:msgSlide .35s cubic-bezier(.16,1,.3,1) both}
@@ -1265,8 +1272,11 @@
       </div>
     </div>
     <div class="concierge-header-actions">
-      <button class="concierge-new" id="concierge-new" type="button" aria-label="New Chat" title="Start new chat">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+      <button class="concierge-icon-btn" id="concierge-history-btn" type="button" aria-label="Chat History" title="View past chats">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+      </button>
+      <button class="concierge-icon-btn" id="concierge-new" type="button" aria-label="New Chat" title="Start new chat">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
       </button>
       <select class="concierge-lang-select" id="concierge-lang" aria-label="Language">
         <option value="en">EN</option>
@@ -1278,6 +1288,7 @@
     </div>
   </div>
   <div class="concierge-messages" id="concierge-messages" aria-live="polite" data-lenis-prevent></div>
+  <div class="concierge-history-panel" id="concierge-history-panel" data-lenis-prevent></div>
   <div class="concierge-quick" id="concierge-quick" aria-label="Suggested questions">
     <button type="button" data-question="What can TEAM manufacture?">🏭 Manufacturing</button>
     <button type="button" data-question="I'd like to source apparel">👔 Source apparel</button>
@@ -2040,12 +2051,24 @@ const conciergeMessages = document.getElementById('concierge-messages');
 const conciergeQuick = document.getElementById('concierge-quick');
 const conciergeLang = document.getElementById('concierge-lang');
 const conciergeNew = document.getElementById('concierge-new');
+const conciergeHistoryBtn = document.getElementById('concierge-history-btn');
+const conciergeHistoryPanel = document.getElementById('concierge-history-panel');
 
 let sessionId = localStorage.getItem("team_concierge_session");
 if (!sessionId) {
   sessionId = "session_" + Math.random().toString(36).substring(2) + Date.now().toString(36);
   localStorage.setItem("team_concierge_session", sessionId);
 }
+
+// Track sessions for history
+let sessionHistory = JSON.parse(localStorage.getItem("team_concierge_history") || "[]");
+function saveToHistory(id) {
+  if (!sessionHistory.some(s => s.id === id)) {
+    sessionHistory.unshift({ id, date: Date.now() });
+    localStorage.setItem("team_concierge_history", JSON.stringify(sessionHistory));
+  }
+}
+saveToHistory(sessionId);
 
 const GREETINGS = {
   en: "Hey there! 👋 I'm Alex from Team Group's export team. What can I help you with today?",
@@ -2212,18 +2235,64 @@ import("https://esm.sh/convex@1.14.3/browser").then(({ ConvexHttpClient }) => {
     conciergeLauncher.addEventListener('click',()=>toggleConcierge(!conciergePanel.classList.contains('open')));
     conciergeClose.addEventListener('click',()=>toggleConcierge(false));
     
+    function showChatView() {
+      conciergeHistoryPanel.classList.remove('active');
+      conciergeMessages.classList.remove('hidden');
+      conciergeForm.classList.remove('hidden');
+    }
+
     if (conciergeNew) {
       conciergeNew.addEventListener('click', () => {
-        // Generate new session ID
+        showChatView();
         sessionId = "session_" + Math.random().toString(36).substring(2) + Date.now().toString(36);
         localStorage.setItem("team_concierge_session", sessionId);
-        // Reset states
+        saveToHistory(sessionId);
         lastMsgCount = 0;
         isFirstRender = true;
         isWaitingForBot = false;
         conciergeMessages.innerHTML = '';
         if (conciergeQuick) conciergeQuick.style.display = 'flex';
         pollMessages();
+      });
+    }
+
+    if (conciergeHistoryBtn) {
+      conciergeHistoryBtn.addEventListener('click', () => {
+        const isActive = conciergeHistoryPanel.classList.contains('active');
+        if (isActive) {
+          showChatView();
+        } else {
+          // Show history
+          conciergeMessages.classList.add('hidden');
+          conciergeForm.classList.add('hidden');
+          if (conciergeQuick) conciergeQuick.classList.add('hidden');
+          conciergeHistoryPanel.classList.add('active');
+          
+          conciergeHistoryPanel.innerHTML = '';
+          if (sessionHistory.length === 0) {
+            conciergeHistoryPanel.innerHTML = '<div style="text-align:center; padding: 20px; color:rgba(255,255,255,0.5); font-size:0.8rem;">No past chats found</div>';
+          }
+          
+          sessionHistory.forEach(session => {
+            const el = document.createElement('div');
+            el.className = 'concierge-history-item';
+            el.innerHTML = `
+              <div class="concierge-history-title">Chat Session</div>
+              <div class="concierge-history-date">${new Date(session.date).toLocaleDateString()} ${new Date(session.date).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}</div>
+            `;
+            el.addEventListener('click', () => {
+              sessionId = session.id;
+              localStorage.setItem("team_concierge_session", sessionId);
+              lastMsgCount = 0;
+              isFirstRender = true;
+              isWaitingForBot = false;
+              conciergeMessages.innerHTML = '';
+              showChatView();
+              pollMessages();
+            });
+            conciergeHistoryPanel.appendChild(el);
+          });
+        }
       });
     }
 
