@@ -2119,8 +2119,17 @@ function hideTypingIndicator() {
 
 let lastMsgCount = 0;
 let isWaitingForBot = false;
+let isFirstRender = true;
 
 function renderMessages(messages) {
+  // Only re-render if the number of messages changed, or if we need to clear the typing indicator
+  if (!isFirstRender && messages.length === lastMsgCount && !isWaitingForBot) {
+    return;
+  }
+
+  // Check if user is currently scrolled to the bottom (within 50px)
+  const isAtBottom = conciergeMessages.scrollHeight - conciergeMessages.scrollTop - conciergeMessages.clientHeight < 50;
+
   conciergeMessages.innerHTML = '';
 
   // greeting
@@ -2144,8 +2153,13 @@ function renderMessages(messages) {
     conciergeQuick.style.display = 'none';
   }
 
-  conciergeMessages.scrollTop = conciergeMessages.scrollHeight;
+  // Only auto-scroll to bottom if they were already at the bottom, or if this is the first render, or if they just sent a message
+  if (isAtBottom || isFirstRender || isWaitingForBot) {
+    conciergeMessages.scrollTop = conciergeMessages.scrollHeight;
+  }
+  
   lastMsgCount = messages.length;
+  isFirstRender = false;
 }
 
 if (conciergeLang) {
