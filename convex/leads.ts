@@ -82,22 +82,26 @@ export const extractLead = action({
     const transcript = messages.map(m => `${m.sender}: ${m.content}`).join("\n");
 
     try {
-      const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+      const apiKey = process.env.MINIMAX_API_KEY;
+      if (!apiKey) {
+        console.error("MINIMAX_API_KEY not set for lead extraction");
+        return;
+      }
+
+      const response = await fetch("https://api.minimax.io/v1/text/chatcompletion_v2", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: "Bearer ",
-          "HTTP-Referer": "https://teambd.com",
-          "X-Title": "Team Group BD Extraction",
+          Authorization: `Bearer ${apiKey}`,
         },
         body: JSON.stringify({
-          model: "google/gemini-2.0-flash-exp:free",
+          model: "MiniMax-M1",
           messages: [
             { role: "system", content: EXTRACTOR_PROMPT },
             { role: "user", content: transcript }
           ],
-          response_format: { type: "json_object" },
           temperature: 0.1,
+          max_completion_tokens: 200,
         }),
       });
 
@@ -106,7 +110,7 @@ export const extractLead = action({
       
       if (rawJson) {
         // Strip any markdown if the model ignored instructions
-        const cleanJson = rawJson.replace(/^```json\n/, "").replace(/\n```$/, "");
+        const cleanJson = rawJson.replace(/^```(json)?\n/, "").replace(/\n```$/, "").trim();
         const parsed = JSON.parse(cleanJson);
         
         await ctx.runMutation(api.leads.saveLead, {
