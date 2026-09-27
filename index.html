@@ -346,25 +346,25 @@
     .biz-img-panel{position:relative;overflow:hidden}
     .biz-img-panel img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--expo)}
     .biz-full-card.active .biz-img-panel img{transform:scale(1.03)}
-    .biz-img-overlay{position:absolute;inset:0;background:linear-gradient(to right,transparent 60%,var(--navy) 100%)}
-    .biz-text-panel{background:var(--navy);padding:clamp(60px,8vw,100px) clamp(40px,5vw,72px);display:flex;flex-direction:column;justify-content:center;position:relative}
+    .biz-img-overlay{position:absolute;inset:0;background:linear-gradient(90deg,rgba(6,10,16,.05) 0%,rgba(6,10,16,.16) 44%,rgba(28,36,48,.98) 100%),linear-gradient(0deg,rgba(6,10,16,.35),transparent 48%,rgba(6,10,16,.22))}
+    .biz-text-panel{background:linear-gradient(105deg,rgba(28,36,48,.98),rgba(28,36,48,1));padding:clamp(60px,8vw,100px) clamp(48px,6vw,92px);display:flex;flex-direction:column;justify-content:center;position:relative;box-shadow:-24px 0 48px rgba(17,24,32,.18)}
     .biz-accent{position:absolute;top:0;left:0;right:0;height:3px}
     .biz-idx{font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.2em;color:rgba(255,255,255,.2);margin-bottom:48px;display:flex;align-items:center;gap:12px}
     .biz-idx-line{width:24px;height:1px;background:rgba(255,255,255,.15)}
     .biz-industry-tag{display:inline-block;font-family:'Space Mono',monospace;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--red);padding:4px 12px;border:1px solid rgba(212,43,53,.35);border-radius:2px;margin-bottom:20px}
     .biz-name{font-family:'DM Serif Display',serif;font-size:clamp(1.6rem,3.2vw,3rem);color:var(--white);line-height:1.2;margin-bottom:20px}
-    .biz-desc-full{font-size:.9rem;line-height:1.85;color:rgba(255,255,255,.55);margin-bottom:40px;max-width:420px}
+    .biz-desc-full{font-size:.92rem;line-height:1.8;color:rgba(255,255,255,.72);margin-bottom:40px;max-width:430px}
     .biz-cta{display:inline-flex;align-items:center;gap:10px;font-size:.75rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--white);border-bottom:1px solid rgba(255,255,255,.2);padding-bottom:4px;transition:border-color .3s,gap .3s}
     .biz-cta:hover{border-color:var(--red);gap:16px}
     .biz-cta-line{width:20px;height:1px;background:var(--red)}
     .route-spine{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);height:58%;z-index:12;display:flex;flex-direction:column;justify-content:space-between;align-items:center;pointer-events:none}
     .route-spine::before{content:'';position:absolute;top:0;bottom:0;width:1px;background:rgba(255,255,255,.18)}
-    .route-node{position:relative;display:flex;align-items:center;gap:10px;min-width:110px;color:rgba(255,255,255,.4);font-family:'Space Mono',monospace;font-size:.5rem;letter-spacing:.16em;text-transform:uppercase;transition:color .35s,transform .35s}
+    .route-node{position:relative;display:flex;align-items:center;gap:10px;min-width:110px;padding:7px 9px;color:rgba(255,255,255,.56);background:rgba(7,11,16,.72);border:1px solid rgba(255,255,255,.1);font-family:'Space Mono',monospace;font-size:.5rem;letter-spacing:.16em;text-transform:uppercase;transition:color .35s,transform .35s,background .35s,border-color .35s}
     .route-node:nth-child(odd){transform:translateX(-72px);text-align:right;justify-content:flex-end}
     .route-node:nth-child(even){transform:translateX(72px)}
     .route-node::before{content:'';width:9px;height:9px;border:1px solid rgba(255,255,255,.4);border-radius:50%;background:var(--navy);transition:background .35s,border-color .35s,box-shadow .35s;order:2}
     .route-node:nth-child(even)::before{order:-1}
-    .route-node.active{color:#fff}
+    .route-node.active{color:#fff;background:rgba(212,43,53,.16);border-color:rgba(212,43,53,.65)}
     .route-node.active::before{background:var(--red);border-color:var(--red);box-shadow:0 0 0 6px rgba(212,43,53,.14),0 0 18px rgba(212,43,53,.6)}
     .biz-route-meta{font-family:'Space Mono',monospace;font-size:.52rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.36);margin-bottom:20px}
     .biz-route-meta strong{color:var(--red);font-weight:400}
