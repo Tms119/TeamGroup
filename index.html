@@ -1790,8 +1790,8 @@ function loadJourneyFrames(){
   return new Promise(resolve=>{
     let loaded = 0;
     let nextIndex = 0;
-    let firstChapterReady = false;
-    const priorityCount = window.innerWidth <= 768 ? 12 : 24;
+    let allFramesReady = false;
+    const priorityCount = FRAME_COUNT;
     const updateLoader = ()=>{
       loaded += 1;
       const percent = Math.min(100, Math.round((loaded / priorityCount) * 100));
@@ -1799,8 +1799,8 @@ function loadJourneyFrames(){
       if(loaderLine) loaderLine.style.width = Math.max(48, percent * .48) + 'px';
       const loaderWordmark = document.querySelector('.pre-wordmark');
       if(loaderWordmark) loaderWordmark.textContent = `TEAM GROUP · ${percent}%`;
-      if(!firstChapterReady && loaded >= priorityCount){
-        firstChapterReady = true;
+      if(!allFramesReady && loaded >= priorityCount){
+        allFramesReady = true;
         resolve();
       }
     };
