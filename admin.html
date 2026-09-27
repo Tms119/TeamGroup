@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TEAM Admin Dashboard</title>
+  <style>
+    :root {
+      --bg: #0C121C;
+      --card: rgba(255,255,255,0.05);
+      --red: #D42B35;
+      --text: #F8F9FA;
+      --text-muted: rgba(255,255,255,0.6);
+      --border: rgba(255,255,255,0.1);
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
+    
+    /* Login Screen */
+    #login-screen {
+      position: absolute;
+      inset: 0;
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+    }
+    .login-box {
+      background: rgba(22,34,48,0.5);
+      border: 1px solid var(--border);
+      padding: 40px;
+      border-radius: 16px;
+      width: 100%;
+      max-width: 360px;
+      text-align: center;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.5);
+      backdrop-filter: blur(20px);
+    }
+    .login-box h2 {
+      margin: 0 0 24px;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+    }
+    .input-group {
+      margin-bottom: 16px;
+      text-align: left;
+    }
+    .input-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    .input-group input {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 12px;
+      background: rgba(0,0,0,0.2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: #fff;
+      font-size: 1rem;
+    }
+    .input-group input:focus {
+      outline: none;
+      border-color: var(--red);
+    }
+    .login-btn {
+      width: 100%;
+      padding: 14px;
+      background: var(--red);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 8px;
+      transition: background 0.2s;
+    }
+    .login-btn:hover {
+      background: #ff3b45;
+    }
+    .error-msg {
+      color: #ff5c66;
+      font-size: 0.85rem;
+      margin-top: 12px;
+      display: none;
+    }
+
+    /* Dashboard Layout */
+    #dashboard-screen {
+      display: none;
+      width: 100%;
+      height: 100%;
+    }
+    .sidebar {
+      width: 260px;
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      padding: 24px;
+      box-sizing: border-box;
+      background: rgba(255,255,255,0.02);
+    }
+    .logo {
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 40px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .logo-mark {
+      width: 12px;
+      height: 12px;
+      background: var(--red);
+      clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    }
+    .nav-item {
+      padding: 12px 16px;
+      border-radius: 8px;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .nav-item:hover {
+      background: var(--card);
+      color: var(--text);
+    }
+    .nav-item.active {
+      background: rgba(212,43,53,0.15);
+      color: #ff9da1;
+    }
+    .main-content {
+      flex: 1;
+      padding: 40px;
+      overflow-y: auto;
+    }
+    h1 {
+      margin: 0 0 32px;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LOGIN -->
+  <div id="login-screen">
+    <div class="login-box">
+      <h2>TEAM Admin</h2>
+      <form id="login-form">
+        <div class="input-group">
+          <label>Email address</label>
+          <input type="email" id="email" required placeholder="admin@teamgroup.com" />
+        </div>
+        <div class="input-group">
+          <label>Password</label>
+          <input type="password" id="password" required />
+        </div>
+        <button type="submit" class="login-btn">Sign In</button>
+        <div class="error-msg" id="error-msg"></div>
+      </form>
+    </div>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div id="dashboard-screen">
+    <aside class="sidebar">
+      <div class="logo">
+        <div class="logo-mark"></div>
+        TEAM GROUP
+      </div>
+      <div class="nav-item active">Overview</div>
+      <div class="nav-item">Leads</div>
+      <div class="nav-item">Chat History</div>
+      <div class="nav-item">Settings</div>
+      
+      <div style="flex:1"></div>
+      
+      <div class="nav-item" id="logout-btn" style="color: var(--red)">Sign Out</div>
+    </aside>
+    
+    <main class="main-content">
+      <h1>Dashboard</h1>
+      <div class="card">
+        <p style="color: var(--text-muted); margin:0;">
+          Welcome to the TEAM Admin Dashboard. <br><br>
+          We will build out the Leads View, Team Management, and Chat History in Phase 3.
+        </p>
+      </div>
+    </main>
+  </div>
+
+  <script type="module">
+    import { ConvexHttpClient } from "https://esm.sh/convex@1.14.3/browser";
+    
+    // Setup Convex client
+    const convexClient = new ConvexHttpClient("https://diligent-cardinal-104.convex.cloud");
+
+    const loginScreen = document.getElementById('login-screen');
+    const dashboardScreen = document.getElementById('dashboard-screen');
+    const loginForm = document.getElementById('login-form');
+    const errorMsg = document.getElementById('error-msg');
+    const logoutBtn = document.getElementById('logout-btn');
+
+    // Check if already logged in (simple session)
+    if (localStorage.getItem('team_admin_user')) {
+      showDashboard();
+    }
+
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      
+      errorMsg.style.display = 'none';
+      const btn = loginForm.querySelector('.login-btn');
+      btn.textContent = 'Signing in...';
+
+      try {
+        const result = await convexClient.query("admin:login", { email, password });
+        if (result.success) {
+          localStorage.setItem('team_admin_user', JSON.stringify(result.user));
+          showDashboard();
+        } else {
+          errorMsg.textContent = result.error;
+          errorMsg.style.display = 'block';
+        }
+      } catch (err) {
+        errorMsg.textContent = "Connection error. Try again.";
+        errorMsg.style.display = 'block';
+      } finally {
+        btn.textContent = 'Sign In';
+      }
+    });
+
+    logoutBtn.addEventListener('click', () => {
+      localStorage.removeItem('team_admin_user');
+      dashboardScreen.style.display = 'none';
+      loginScreen.style.display = 'flex';
+      document.getElementById('password').value = '';
+    });
+
+    function showDashboard() {
+      loginScreen.style.display = 'none';
+      dashboardScreen.style.display = 'flex';
+    }
+  </script>
+</body>
+</html>
