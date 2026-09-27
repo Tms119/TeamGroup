@@ -2012,11 +2012,11 @@ function renderMessages(messages) {
   conciergeMessages.scrollTop = conciergeMessages.scrollHeight;
 }
 
-import("https://cdn.jsdelivr.net/npm/convex@1.14.3/dist/browser.bundle.js").then(({ ConvexHttpClient }) => {
-  const convex = new ConvexHttpClient("https://diligent-cardinal-104.convex.cloud");
+import("https://esm.sh/convex@1.14.3/browser").then(({ ConvexHttpClient }) => {
+  const convexClient = new ConvexHttpClient("https://diligent-cardinal-104.convex.cloud");
 
   function pollMessages() {
-    convex.query("chat:getMessages", { sessionId }).then(messages => {
+    convexClient.query("chat:getMessages", { sessionId }).then(messages => {
       renderMessages(messages);
     }).catch(console.error);
   }
@@ -2026,7 +2026,7 @@ import("https://cdn.jsdelivr.net/npm/convex@1.14.3/dist/browser.bundle.js").then
   pollMessages();
 
   function answerConcierge(question){
-    convex.mutation("chat:sendMessage", { sessionId, content: question }).then(() => {
+    convexClient.mutation("chat:sendMessage", { sessionId, content: question }).then(() => {
       pollMessages();
     }).catch(console.error);
   }
@@ -2060,7 +2060,7 @@ import("https://cdn.jsdelivr.net/npm/convex@1.14.3/dist/browser.bundle.js").then
     }));
     document.addEventListener('keydown',event=>{if(event.key==='Escape' && conciergePanel.classList.contains('open')) toggleConcierge(false);});
   }
-});
+}).catch(console.error);
 
 /* ── Mobile editorial reveals ──────────────────── */
 if(window.innerWidth <= 768 && !reducedMotion && 'IntersectionObserver' in window){
