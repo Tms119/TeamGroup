@@ -62,5 +62,10 @@ export const saveBotResponse = mutation({
       content: args.content,
     });
     await ctx.db.patch(args.conversationId, { lastMessageAt: Date.now() });
+    
+    // Trigger background extraction of leads
+    await ctx.scheduler.runAfter(0, api.leads.extractLead, {
+      conversationId: args.conversationId,
+    });
   },
 });
