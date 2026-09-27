@@ -619,7 +619,9 @@
     .concierge-msg-row.user{justify-content:flex-end}
     @keyframes msgSlide{from{opacity:0;transform:translateY(8px)}}
     .concierge-msg-avatar{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#D42B35,#ff5c66);display:grid;place-items:center;font-size:.5rem;font-weight:700;flex-shrink:0;margin-bottom:2px}
-    .concierge-message{max-width:78%;padding:12px 16px;border-radius:4px 16px 16px 16px;font-size:.8rem;line-height:1.6;color:rgba(255,255,255,.88);background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.05);word-wrap:break-word}
+    .concierge-msg-col{display:flex;flex-direction:column;max-width:78%;align-items:flex-start}
+    .concierge-msg-row.user .concierge-msg-col{align-items:flex-end}
+    .concierge-message{padding:12px 16px;border-radius:4px 16px 16px 16px;font-size:.8rem;line-height:1.6;color:rgba(255,255,255,.88);background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.05);word-break:break-word}
     .concierge-msg-row.user .concierge-message{border-radius:16px 4px 16px 16px;background:linear-gradient(135deg,#D42B35,#c92430);color:#fff;border:none}
     .concierge-message a{color:#ff9da1;text-decoration:underline;text-underline-offset:3px}
     .concierge-msg-row.user .concierge-message a{color:rgba(255,255,255,.85)}
@@ -2079,6 +2081,7 @@ function createMsgRow(content, isUser, timestamp) {
   }
 
   const col = document.createElement('div');
+  col.className = 'concierge-msg-col';
   const msg = document.createElement('div');
   msg.className = 'concierge-message';
   msg.textContent = content;
