@@ -1,0 +1,172 @@
+# Team Group BD — Current Website Baseline
+
+**Site reviewed:** [teambd.com](https://teambd.com/)  
+**Review date:** 9 September 2026  
+**Scope:** the public website reachable from its live primary navigation. This is an evidence-based content and UX baseline only; no website changes or form submissions were made.
+
+**Working-file status:** Treat this as the living backup for the renovation. Add validated facts, approved copy, design decisions, URLs, asset sources and launch checks here as the work continues.
+
+## Executive snapshot
+
+TEAM Group presents itself as a Bangladesh-based conglomerate spanning RMG/textiles, retail, pharmaceuticals, IT, and real estate. Its strongest messages are ethical production, sustainability, employee welfare, and an international manufacturing footprint.
+
+The current site functions primarily as a static corporate brochure. It has a clear set of core pages and company profiles, but very few purposeful conversion paths: one contact form, external company links, two PDF profile downloads, and a generic career email. The renovation should preserve the substance, but organize it around audiences and outcomes: prospective clients, job seekers, partners, media, and community/stakeholders.
+
+## Current information architecture
+
+| Section | Public pages / destination | Current purpose |
+| --- | --- | --- |
+| Home | [Home](https://teambd.com/) | Full-screen multi-slide brand/industry introduction; Vision, Mission, Values, industry carousel, generic corporate contact. |
+| Company | [About Us](https://teambd.com/company/about-us/), [Management](https://teambd.com/company/management/), [History](https://teambd.com/company/history/) | Corporate identity, leadership letter, founding/growth timeline. |
+| Industries | Six linked company-profile pages | Explains business units; some include a PDF or external company website. |
+| Sustainability | [Environmental Sustainability](https://teambd.com/sustainability/environmental-sustainability/), [Employee Welfare](https://teambd.com/sustainability/employee-welfare/) | ESG practices and workforce facilities. |
+| CSR | [Corporate Social Responsibility](https://teambd.com/csr/) | Community and employee-welfare initiatives. |
+| News & Events | [News & Events](https://teambd.com/news-events/) | Static card list of news/events. |
+| Career | [Career](https://teambd.com/career/) | Recruitment instruction only; no roles or application flow. |
+| Contact | [Contact](https://teambd.com/contact/) | Five-field enquiry form plus corporate address, phone and email. |
+
+The global header uses expandable sections for Company, Industries and Sustainability, plus direct links to CSR, News & Events, Career and Contact. The same broad hierarchy is repeated in the footer.
+
+## What the site says about TEAM Group
+
+- It describes itself as a rapidly growing conglomerate with operations in RMG, pharmaceuticals, retail, IT and real estate.
+- The About page claims a workforce of **20,000**, five RMG factories, global operations including the UK, Germany, Spain, Italy, Turkey and Australia, and a sourcing operation that serves global clients.
+- Sustainability, ethics, safe workplaces, innovation and quality appear consistently as core brand themes.
+- The homepage states Vision, Mission and four values: **Ownership, Excellence, Social Responsibility, and Recognition & Reward**.
+- The management message says the group has expanded to **six industries and 13 business units**, and additionally mentions Security Solutions. There is no matching Security Solutions page or navigation category at present.
+- The history page gives this growth sequence: sourcing/garment units (2009), Twelve (2012), Team Accessories (2015), Team Pharmaceuticals and Mars Stitch (2017), Intellier (2018), Team Developers, 4A Yarn Dyeing expansion and Pharma IMEX (2019).
+
+## Business-unit content and current calls to action
+
+| Business | Current positioning | Action / supporting content |
+| --- | --- | --- |
+| [Team Manufacturing Company Ltd.](https://teambd.com/industry/textile/team-sourcing/) | Large garment supplier/sourcing channel; manufacturing access, design, merchandising, product development, QC, shipping and compliance. | PDF company profile; image galleries; address/map. |
+| [Twelve Clothing Ltd.](https://teambd.com/industry/retail/twelve-clothing/) | Affordable Bangladeshi fashion retail brand, stated as operating in 30 locations. | External Twelve website; image gallery; corporate address/map. |
+| [Team Pharmaceuticals Ltd.](https://teambd.com/industry/pharmaceuticals/team-pharmaceuticals/) | Quality, innovative medicine producer with state-of-the-art manufacturing. | External pharma website; image gallery; address/map. |
+| [Pharma IMEX Ltd.](https://teambd.com/industry/pharmaceuticals/pharma-imex/) | Pharmaceutical/medical-device marketing and distribution; import, export and indenting. | PDF company profile; address/map. |
+| [Intellier Ltd.](https://teambd.com/industry/it/intellier/) | Software, hardware, cloud, migration and ERP services. | External Intellier website; image gallery; address/map. |
+| [Team Developers Ltd.](https://teambd.com/industry/real-state/team-developers/) | Eco-conscious residential and commercial real-estate development. | External Team Developers website; image gallery; address/map. |
+
+## Existing features
+
+- Home-page hero carousel with five thematic slides: manufacturing, fashion, healthcare, technology and real estate.
+- Responsive hamburger navigation and grouped mega-menu-style navigation.
+- Content-led corporate pages, history timeline, leadership message and a repeating global footer.
+- Multiple image carousels/galleries throughout industry and sustainability/CSR pages.
+- Two downloadable company-profile PDFs (Manufacturing and Pharma IMEX).
+- Four outbound brand/company destinations: Twelve, Team Pharmaceuticals, Intellier and Team Developers.
+- Contact enquiry form: name, email, subject, phone and message.
+- Corporate contact information: ABC Heritage (5th Floor), 2&4 Jashimuddin Avenue, Sector 3, Uttara, Dhaka-1230; `+880 2 58956520, 58950953`; `info@team.com.bd`.
+- Facebook and LinkedIn links, plus a generic link to `twitter.com`.
+- News/event listing with category, date, image, title and short summary.
+
+## High-value findings for the renovation
+
+### Must fix
+
+1. **The embedded Google Map fails on each business profile reviewed.** It visibly displays “This page can't load Google Maps correctly” and the Google ownership/error prompt. This damages trust and obscures a basic contact task.
+2. **News is stale.** The newest visible entries are from 2021, while the page presents itself as a source for the latest updates. The cards also appear as a static list, without visible article-detail links, filtering, search or pagination.
+3. **Career is not a real recruitment journey.** It asks visitors to monitor Bdjobs and LinkedIn and to email a CV to `career@team.com.bd`, but provides no links, open roles, filters, job detail pages, application flow or clear candidate guidance.
+4. **Claims need a content-verification pass before redesign.** The site uses overlapping but not fully aligned numbers and scope: five RMG factories vs. 13 business units; five industries on the homepage vs. six industries plus Security Solutions in the management message; LEED references also vary by page.
+
+### Major UX and content opportunities
+
+1. **The homepage does not quickly route visitors by intent.** Its hero carousel is visually led and its primary visible CTA sends users to a broad About page. A prospective buyer, talent candidate, supplier, media contact or community stakeholder has no explicit first action.
+2. **Business pages are long, largely undifferentiated templates.** Most repeat the same pattern—hero, paragraphs, gallery, map, address—and offer little proof of capability such as facilities, capacity, certifications, markets, clients (where appropriate), case studies or a unit-specific enquiry route.
+3. **Sustainability content is valuable but hard to scan and substantiate.** It has meaningful operational detail (solar panels, rainwater preservation, boiler economizers, LEDs, etc.) but lacks impact data, dates, baseline/target metrics, certification evidence, downloadable reports and a unified ESG narrative.
+4. **CSR and employee-welfare proof is mostly descriptive.** The initiatives are good raw material—clinics, bonuses, flood/winter relief, maternity care, inclusion and tree planting—but need outcomes, dates, imagery with captions, stories and reporting structure.
+5. **Company history is informative but incomplete as a brand story.** It ends with 2019 despite leadership copy describing significant later growth. The next site should resolve this with a verified, current timeline.
+6. **Contact information is duplicated but not task-optimized.** The footer repeats one corporate address everywhere, even when individual companies list different office locations. A better model would give a global corporate contact centre plus clear business-unit contacts and map/directions that work.
+7. **Social and outbound links need stewardship.** The Twitter link points to the generic Twitter homepage rather than a TEAM profile. External links should be current, secure, clearly labelled and tested.
+
+### Technical, accessibility and discoverability baseline
+
+- The site is a JavaScript-rendered Vue single-page application. Without JavaScript it returns a “doesn't work properly without JavaScript” message, which limits resilience and can weaken search discoverability.
+- The home page has no populated meta description or canonical URL. Page Open Graph descriptions are also blank on the inspected pages.
+- Image alternatives are sometimes generic (for example, “peal” and “img”) rather than describing content. This should be corrected alongside meaningful gallery captions.
+- Carousels expose slide controls, but their value and content are not evident without looking through them; they should not carry essential information without an equivalent static presentation.
+- The site has a mobile-friendly menu and hero at the reviewed viewport, but this is not a substitute for a full responsive, keyboard and screen-reader QA pass.
+- The contact form was deliberately not submitted, so delivery, validation, spam protection and confirmation behaviour remain unverified.
+- Footer copyright remains **© 2020**, which makes the overall experience feel unmaintained.
+
+## Recommended content model for the rebuild
+
+Before interface design, assemble and approve a single source of truth for:
+
+1. Corporate facts: founding date, workforce, number of units/factories, countries served, leadership, awards and certifications.
+2. A current portfolio inventory, including whether Security Solutions, Mars Stitch, Team Accessories, 4A Yarn Dyeing and Brothers Fashion should appear as distinct companies or facilities.
+3. For every business: proposition, services/products, facilities/capacity, certifications, markets, contact person/team, correct office/factory addresses, map coordinates, current imagery and best action.
+4. A dated ESG/CSR evidence set: initiatives, KPIs, certificates, reports, partners and case studies that can be published with confidence.
+5. A genuine careers feed (or verified job-board integration), candidate FAQs and a fair application/privacy process.
+6. A current newsroom backlog with article body, source, date, category, image rights and a publishing owner.
+
+## Recommended success paths for the new site
+
+| Visitor | Primary route | Desired outcome |
+| --- | --- | --- |
+| International apparel buyer / sourcing partner | Industries → Manufacturing → capabilities, compliance, facilities → “Start a sourcing conversation” | Qualified B2B enquiry. |
+| Customer / distributor | Relevant business unit → product/service information → unit contact or external site | Correct destination with confidence. |
+| Candidate | Careers → live roles, filters, role detail → application | Trackable, accessible application. |
+| ESG, compliance or media stakeholder | Sustainability / Impact → verified metrics, reports, stories → media/contact route | Credible evidence and easy contact. |
+| Investor, partner or general visitor | About → group overview, history, leadership, portfolio → “Contact TEAM Group” | Understand the group and reach the right team. |
+
+## Next practical phase
+
+Use this baseline to create a verified content inventory and a new information architecture before visual design. The design target should be a premium, editorial corporate experience, but the largest perceived quality gain will come from accurate content, clear audience pathways, proof of capability and reliable conversion mechanics—not surface styling alone.
+
+## Story-first renovation direction
+
+### The central story
+
+The new site should stop reading like a set of separate company descriptions. It should tell one confident story:
+
+> **TEAM Group began by making for the world. It grew by earning trust—through people, quality and responsibility—and is now building the next chapter of Bangladesh across industries.**
+
+This gives every page a role in one narrative: the group’s origin, its proof of capability, the people and principles behind its growth, and the future it is helping to build.
+
+### The narrative arc
+
+| Chapter | What the visitor should feel/learn | Best evidence to show |
+| --- | --- | --- |
+| 1. Origin | “This is a real Bangladeshi group with ambition and craft.” | 2009 founding story, founder legacy, early garment/sourcing work, archival imagery. |
+| 2. Trust at scale | “They can deliver globally and responsibly.” | Fact-checked workforce/facility/country figures, compliance, quality systems, certifications and manufacturing/process photography. |
+| 3. Growth with purpose | “Their success has created a broader ecosystem.” | The portfolio of businesses presented as one connected group, not six isolated pages. |
+| 4. People and planet | “Responsibility is part of how they operate, not a claim in the footer.” | Human stories, worker welfare, environmental measures, dated impact metrics and third-party credentials. |
+| 5. The next chapter | “They are forward-looking and open to the right conversation.” | Innovation, new markets, current news, open careers and direct B2B/contact calls to action. |
+
+### Homepage storyline
+
+1. **Cinematic opening:** one still, high-quality full-screen image or short silent film—not a rotating carousel. Lead with a sharp group promise and two paths: “Explore our businesses” and “Partner with TEAM.”
+2. **A quick proof moment:** 3–5 verified numbers, such as years of operation, people, facilities, markets and certified sites. Every number must link to supporting context.
+3. **The origin and evolution:** a short editorial paragraph plus a visual timeline from 2009 to today, ending in the group’s current portfolio.
+4. **The portfolio as a living system:** six business cards arranged around the idea of manufacturing, everyday life and future-facing services. Each card explains what it does, who it serves and its strongest proof point.
+5. **Impact with faces:** one people story and one environmental story, supported by clear data. Avoid generic “we care” copy.
+6. **What is happening now:** latest news, a featured milestone and current job openings. This prevents the group from feeling frozen in 2021.
+7. **A decisive close:** route visitors to “Start a sourcing conversation,” “Find a business,” “Work with us,” or “Contact the group.”
+
+### Voice and visual principles
+
+- **Editorial, not corporate-template:** large, purposeful photography; concise headings; generous space; minimal decoration.
+- **Human proof over stock claims:** show workers, engineers, designers, clinics, factory details and communities with captions that explain why each moment matters.
+- **Calm confidence:** replace long, promotional paragraphs with specific facts and short, direct language.
+- **One consistent system, six distinct identities:** TEAM Group should feel unified, while each business has its own colour accent, imagery and service story.
+- **Motion with purpose:** use small, accessible transitions to reveal the story; do not use autoplay movement as the main way to communicate content.
+- **Premium reliability:** maps, forms, mobile layouts, performance, accessibility and current content are part of the visual standard.
+
+### Proposed top-level navigation
+
+**About TEAM** · **Businesses** · **Impact** · **Stories & News** · **Careers** · **Contact**
+
+- **About TEAM:** origin, leadership, timeline, group facts and governance.
+- **Businesses:** the portfolio landing page and each company’s capability story.
+- **Impact:** environmental sustainability, people, CSR, certifications and reports.
+- **Stories & News:** article pages, filters and a maintained newsroom.
+- **Careers:** live roles, culture, employee stories and applications.
+
+### Content needed to make the story credible
+
+- A fact-checked corporate data sheet approved by leadership.
+- 10–15 strong, rights-cleared photographs across facilities, people, leadership, products and communities; a small set of historical images for the timeline.
+- 4–6 short interview/story sources: founder/leadership legacy, a factory/operations leader, an employee, an ESG/CSR lead, and a leader from a newer business.
+- Current certifications, awards, policies, impact measurements, company profiles and correct contact/location data.
+- A named content owner responsible for news, open roles and annual impact updates after launch.
