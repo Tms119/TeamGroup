@@ -1735,6 +1735,16 @@ const frameDirectory = window.innerWidth <= 768 ? 'frames-mobile' : 'frames';
 const journeyFallback = new Image();
 journeyFallback.src = 'hero_cinematic_factory_1788975958932.jpg';
 const frames = new Array(FRAME_COUNT);
+const CHAPTER_COUNT = 8;
+const CHAPTER_SIZE = Math.ceil(FRAME_COUNT / CHAPTER_COUNT);
+const INITIAL_FRAME_TARGET = Math.ceil(FRAME_COUNT * .5);
+const frameQueue = [];
+const requestedFrames = new Set();
+const frameAttempts = new Map();
+let activeFrameLoads = 0;
+let loadedFrameCount = 0;
+let frameLoaderStarted = false;
+let resolveInitialFrames;
 let journeyWidth = 0;
 let journeyHeight = 0;
 let currentFrame = 0;
@@ -1755,21 +1765,24 @@ function resizeJourneyCanvas(){
 }
 
 function drawJourneyFrame(index){
-  if(!journeyContext || !journeyWidth || !journeyHeight) return;
+  if(!journeyContext || !journeyWidth || !journeyHeight) return false;
   const frame = frames[index];
   const source = frame && frame.complete && frame.naturalWidth ? frame : journeyFallback;
-  if(!source.complete || !source.naturalWidth) return;
+  if(!source.complete || !source.naturalWidth) return false;
   const scale = Math.max(journeyWidth / source.naturalWidth, journeyHeight / source.naturalHeight);
   const width = source.naturalWidth * scale;
   const height = source.naturalHeight * scale;
   journeyContext.clearRect(0, 0, journeyWidth, journeyHeight);
   journeyContext.drawImage(source, (journeyWidth - width) / 2, (journeyHeight - height) / 2, width, height);
   if(journeyFrameLabel) journeyFrameLabel.textContent = String(index + 1).padStart(4, '0');
+  return true;
 }
 
 function renderJourneyProgress(progress){
   const safeProgress = Math.max(0, Math.min(1, progress));
   const nextFrame = Math.min(FRAME_COUNT - 1, Math.round(safeProgress * (FRAME_COUNT - 1)));
+  const activeChapter = Math.min(CHAPTER_COUNT - 1, Math.floor(safeProgress * CHAPTER_COUNT));
+  enqueueChapter(activeChapter);
   if(nextFrame !== currentFrame){
     currentFrame = nextFrame;
     drawJourneyFrame(currentFrame);
@@ -1786,35 +1799,84 @@ function renderJourneyProgress(progress){
   journeyTicks.forEach((tick, index)=>tick.classList.toggle('active', index === Math.max(0, activeCaption)));
 }
 
-function loadJourneyFrames(){
-  return new Promise(resolve=>{
-    let loaded = 0;
-    let nextIndex = 0;
-    let allFramesReady = false;
-    const priorityCount = FRAME_COUNT;
-    const updateLoader = ()=>{
-      loaded += 1;
-      const percent = Math.min(100, Math.round((loaded / priorityCount) * 100));
+function pumpFrameQueue(){
+  while(activeFrameLoads < 12 && frameQueue.length){
+    const queuePosition = frameQueue.reduce((best, index, position)=>
+      Math.abs(index - currentFrame) < Math.abs(frameQueue[best] - currentFrame) ? position : best, 0);
+    const index = frameQueue.splice(queuePosition, 1)[0];
+    activeFrameLoads += 1;
+    const attempt = (frameAttempts.get(index) || 0) + 1;
+    frameAttempts.set(index, attempt);
+    const image = new Image();
+    image.decoding = 'async';
+    const finish = (success)=>{
+      activeFrameLoads -= 1;
+      if(success){
+        loadedFrameCount += 1;
+        if(index === currentFrame){
+          drawJourneyFrame(index);
+          drawnFrame = index;
+        }
+      } else {
+        requestedFrames.delete(index);
+        if(attempt < 2){
+          frameQueue.unshift(index);
+        } else {
+          loadedFrameCount += 1;
+        }
+      }
+      const percent = Math.min(100, Math.round((loadedFrameCount / INITIAL_FRAME_TARGET) * 100));
       const loaderLine = document.querySelector('.pre-line');
       if(loaderLine) loaderLine.style.width = Math.max(48, percent * .48) + 'px';
       const loaderWordmark = document.querySelector('.pre-wordmark');
-      if(loaderWordmark) loaderWordmark.textContent = `TEAM GROUP · ${percent}%`;
-      if(!allFramesReady && loaded >= priorityCount){
-        allFramesReady = true;
+      if(loaderWordmark && !journeyReady) loaderWordmark.textContent = `TEAM GROUP · ${percent}%`;
+      if(resolveInitialFrames && loadedFrameCount >= INITIAL_FRAME_TARGET){
+        const resolve = resolveInitialFrames;
+        resolveInitialFrames = null;
         resolve();
       }
+      pumpFrameQueue();
     };
-    const loadNext = ()=>{
-      if(nextIndex >= FRAME_COUNT) return;
-      const index = nextIndex++;
-      const image = new Image();
-      image.decoding = 'async';
-      image.onload = ()=>{ updateLoader(); loadNext(); };
-      image.onerror = ()=>{ updateLoader(); loadNext(); };
-      image.src = `${frameDirectory}/frame_${String(index + 1).padStart(4, '0')}.jpg`;
-      frames[index] = image;
-    };
-    for(let slot = 0; slot < 12; slot += 1) loadNext();
+    image.onload = ()=>finish(true);
+    image.onerror = ()=>finish(false);
+    image.src = `${frameDirectory}/frame_${String(index + 1).padStart(4, '0')}.jpg`;
+    frames[index] = image;
+  }
+}
+
+function enqueueFrames(indices){
+  indices.forEach(index=>{
+    if(index < 0 || index >= FRAME_COUNT || requestedFrames.has(index)) return;
+    requestedFrames.add(index);
+    frameQueue.push(index);
+  });
+  pumpFrameQueue();
+}
+
+function enqueueChapter(chapterIndex){
+  const start = chapterIndex * CHAPTER_SIZE;
+  const end = Math.min(FRAME_COUNT, start + CHAPTER_SIZE);
+  const nextStart = end;
+  const nextEnd = Math.min(FRAME_COUNT, nextStart + CHAPTER_SIZE);
+  enqueueFrames(Array.from({length:end - start}, (_, index)=>start + index));
+  enqueueFrames(Array.from({length:nextEnd - nextStart}, (_, index)=>nextStart + index));
+}
+
+function loadJourneyFrames(){
+  frameLoaderStarted = true;
+  const initialIndices = [];
+  for(let chapter = 0; chapter < CHAPTER_COUNT; chapter += 1){
+    const start = chapter * CHAPTER_SIZE;
+    const end = Math.min(FRAME_COUNT, start + Math.floor(CHAPTER_SIZE / 2));
+    for(let index = start; index < end; index += 1) initialIndices.push(index);
+  }
+  for(let index = 0; initialIndices.length < INITIAL_FRAME_TARGET; index += 1){
+    if(!initialIndices.includes(index)) initialIndices.push(index);
+  }
+  enqueueFrames(initialIndices);
+  return new Promise(resolve=>{
+    resolveInitialFrames = resolve;
+    if(loadedFrameCount >= INITIAL_FRAME_TARGET) resolve();
   });
 }
 
