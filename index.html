@@ -806,7 +806,6 @@
 <section class="journey infra-explorer" id="infra-explorer">
   <div class="journey-sticky infra-sticky">
     <canvas class="journey-canvas" id="journey-canvas" aria-label="A visual journey from factory to ship"></canvas>
-    <video id="journey-video-fallback" muted playsinline preload="metadata" aria-hidden="true" src="gemini_generated_video_ee02d72b.mp4"></video>
     <div class="journey-scrim"></div>
     <div class="journey-caption active" data-start="0" data-end=".12"><div class="journey-kicker">The product journey · 01</div><h2>Made with<br><em>intention.</em></h2><p>From the first thread to the final voyage, every garment carries the discipline of a connected Bangladesh supply chain.</p></div>
     <div class="journey-caption" data-start=".12" data-end=".28"><div class="journey-kicker">Raw material · 02</div><h2>Every thread<br><em>has a source.</em></h2><p>Responsible materials arrive with a clear purpose: quality you can feel, traceability you can trust.</p></div>
@@ -1791,14 +1790,19 @@ function loadJourneyFrames(){
   return new Promise(resolve=>{
     let loaded = 0;
     let nextIndex = 0;
+    let firstChapterReady = false;
+    const priorityCount = window.innerWidth <= 768 ? 12 : 24;
     const updateLoader = ()=>{
       loaded += 1;
-      const percent = Math.round((loaded / FRAME_COUNT) * 100);
+      const percent = Math.min(100, Math.round((loaded / priorityCount) * 100));
       const loaderLine = document.querySelector('.pre-line');
       if(loaderLine) loaderLine.style.width = Math.max(48, percent * .48) + 'px';
       const loaderWordmark = document.querySelector('.pre-wordmark');
       if(loaderWordmark) loaderWordmark.textContent = `TEAM GROUP · ${percent}%`;
-      if(loaded === FRAME_COUNT) resolve();
+      if(!firstChapterReady && loaded >= priorityCount){
+        firstChapterReady = true;
+        resolve();
+      }
     };
     const loadNext = ()=>{
       if(nextIndex >= FRAME_COUNT) return;
