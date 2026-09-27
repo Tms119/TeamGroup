@@ -2181,6 +2181,9 @@ function renderMessages(messages) {
 
   // Append only new messages
   if (messages.length > lastMsgCount) {
+    // Remove optimistic messages since the real ones have arrived
+    document.querySelectorAll('.optimistic-msg').forEach(el => el.remove());
+
     const newMessages = messages.slice(lastMsgCount);
     newMessages.forEach(msg => {
       conciergeMessages.appendChild(createMsgRow(msg.content, msg.sender === 'visitor', msg._creationTime));
@@ -2234,7 +2237,9 @@ import("https://esm.sh/convex@1.14.3/browser").then(({ ConvexHttpClient }) => {
   function sendUserMessage(text) {
     isWaitingForBot = true;
     // Optimistic UI
-    conciergeMessages.appendChild(createMsgRow(text, true, Date.now()));
+    const optRow = createMsgRow(text, true, Date.now());
+    optRow.classList.add('optimistic-msg');
+    conciergeMessages.appendChild(optRow);
     showTypingIndicator();
     conciergeMessages.scrollTop = conciergeMessages.scrollHeight;
     if (conciergeQuick) conciergeQuick.style.display = 'none';
