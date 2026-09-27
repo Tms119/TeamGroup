@@ -1985,31 +1985,82 @@ const conciergeClose = document.getElementById('concierge-close');
 const conciergeForm = document.getElementById('concierge-form');
 const conciergeInput = document.getElementById('concierge-input');
 const conciergeMessages = document.getElementById('concierge-messages');
-const conciergeAnswers = [
-  {match:['manufacture','factory','garment','textile','sourcing'], answer:'TEAM Manufacturing supports design, product development, sourcing, quality, compliance and export across global apparel markets. <a href="#contact">Start a sourcing conversation →</a>'},
-  {match:['contact','email','phone','reach','address'], answer:'You can reach the team at <a href="mailto:info@team.com.bd">info@team.com.bd</a> or <a href="tel:+880258956520">+880 2 58956520</a>. Our headquarters is in Uttara, Dhaka.'},
-  {match:['partner','work with','buyer','invest','business'], answer:'We work with buyers, strategic partners and investors. <a href="#contact">Tell us what you are building →</a>'},
-  {match:['career','job','join','hiring'], answer:'TEAM Group hires across manufacturing, fashion, pharmaceuticals, technology and real estate. <a href="#careers-cta">Explore careers →</a>'},
-  {match:['capability','industry','business','portfolio'], answer:'Our group spans textiles, fashion retail, pharmaceuticals, technology, real estate and distribution. <a href="#deck-container">Explore the portfolio →</a>'}
-];
+let sessionId = localStorage.getItem("team_concierge_session");
+if (!sessionId) {
+  sessionId = "session_" + Math.random().toString(36).substring(2);
+  localStorage.setItem("team_concierge_session", sessionId);
+}
+
 function toggleConcierge(open){
   conciergePanel.classList.toggle('open', open); conciergePanel.setAttribute('aria-hidden', String(!open)); conciergeLauncher.setAttribute('aria-expanded', String(open));
   if(open) setTimeout(()=>conciergeInput.focus(), 180);
 }
-function addConciergeMessage(text, isUser=false){
-  const message=document.createElement('div'); message.className=`concierge-message${isUser?' user':''}`; message.innerHTML=text; conciergeMessages.appendChild(message); conciergeMessages.scrollTop=conciergeMessages.scrollHeight;
+
+function renderMessages(messages) {
+  conciergeMessages.innerHTML = '';
+  const initial = document.createElement('div');
+  initial.className = 'concierge-message';
+  initial.innerHTML = 'Hello! I am Alex from the Team Group BD support team. How can I help you today?';
+  conciergeMessages.appendChild(initial);
+  
+  messages.forEach(msg => {
+    const message = document.createElement('div');
+    message.className = `concierge-message${msg.sender === 'visitor' ? ' user' : ''}`;
+    message.innerHTML = msg.content;
+    conciergeMessages.appendChild(message);
+  });
+  conciergeMessages.scrollTop = conciergeMessages.scrollHeight;
 }
-function answerConcierge(question){
-  const normalized=question.toLowerCase(); const result=conciergeAnswers.find(item=>item.match.some(word=>normalized.includes(word)));
-  addConciergeMessage(result ? result.answer : 'I can help with manufacturing, capabilities, partnerships, careers or contact details. Try one of those topics, or <a href="#contact">send the team a message →</a>');
-}
-if(conciergeLauncher){
-  conciergeLauncher.addEventListener('click',()=>toggleConcierge(!conciergePanel.classList.contains('open')));
-  conciergeClose.addEventListener('click',()=>toggleConcierge(false));
-  conciergeForm.addEventListener('submit',event=>{event.preventDefault(); const question=conciergeInput.value.trim(); if(!question) return; addConciergeMessage(question,true); conciergeInput.value=''; setTimeout(()=>answerConcierge(question),260);});
-  document.querySelectorAll('[data-question]').forEach(button=>button.addEventListener('click',()=>{const question=button.dataset.question; addConciergeMessage(question,true); setTimeout(()=>answerConcierge(question),260);}));
-  document.addEventListener('keydown',event=>{if(event.key==='Escape' && conciergePanel.classList.contains('open')) toggleConcierge(false);});
-}
+
+import("https://cdn.jsdelivr.net/npm/convex@1.14.3/dist/browser.bundle.js").then(({ ConvexHttpClient }) => {
+  const convex = new ConvexHttpClient("https://diligent-cardinal-104.convex.cloud");
+
+  function pollMessages() {
+    convex.query("chat:getMessages", { sessionId }).then(messages => {
+      renderMessages(messages);
+    }).catch(console.error);
+  }
+
+  // Poll every 3 seconds for new messages
+  setInterval(pollMessages, 3000);
+  pollMessages();
+
+  function answerConcierge(question){
+    convex.mutation("chat:sendMessage", { sessionId, content: question }).then(() => {
+      pollMessages();
+    }).catch(console.error);
+  }
+
+  if(conciergeLauncher){
+    conciergeLauncher.addEventListener('click',()=>toggleConcierge(!conciergePanel.classList.contains('open')));
+    conciergeClose.addEventListener('click',()=>toggleConcierge(false));
+    conciergeForm.addEventListener('submit',event=>{
+      event.preventDefault(); 
+      const question = conciergeInput.value.trim(); 
+      if(!question) return; 
+      
+      // Opt-in UI update
+      const message = document.createElement('div');
+      message.className = 'concierge-message user';
+      message.innerHTML = question;
+      conciergeMessages.appendChild(message);
+      conciergeMessages.scrollTop = conciergeMessages.scrollHeight;
+      
+      conciergeInput.value=''; 
+      answerConcierge(question);
+    });
+    document.querySelectorAll('[data-question]').forEach(button=>button.addEventListener('click',()=>{
+      const question=button.dataset.question; 
+      const message = document.createElement('div');
+      message.className = 'concierge-message user';
+      message.innerHTML = question;
+      conciergeMessages.appendChild(message);
+      conciergeMessages.scrollTop = conciergeMessages.scrollHeight;
+      answerConcierge(question);
+    }));
+    document.addEventListener('keydown',event=>{if(event.key==='Escape' && conciergePanel.classList.contains('open')) toggleConcierge(false);});
+  }
+});
 
 /* ── Mobile editorial reveals ──────────────────── */
 if(window.innerWidth <= 768 && !reducedMotion && 'IntersectionObserver' in window){
