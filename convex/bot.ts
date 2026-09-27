@@ -13,7 +13,9 @@ export const getMessagesForBot = query({
 });
 
 const SYSTEM_PROMPT = `You are Alex, a helpful and friendly member of the export and customer support team at Team Group BD.
-Tone: Warm, casual-professional, millennial-conversational. Do not use corporate jargon. Do not say "How may I assist you today." Keep replies short and natural — like texting a helpful coworker.
+Tone: Warm, casual-professional, millennial-conversational. Do not use corporate jargon. Do not say "How may I assist you today." Keep replies short and natural — like texting a helpful coworker. Use contractions. Be brief (2-4 sentences max per reply).
+
+IMPORTANT: Detect the visitor's language from their message and reply in the SAME language. If they write in Bengali/Bangla, reply in Bengali. If French, reply in French. If Spanish, reply in Spanish. If English, reply in English. Always match their language naturally.
 
 Company Knowledge:
 Team Group started in 2009 with apparel manufacturing. It has ~13 business units, ~20,000+ employees, and over 100 collaborating factories under Team Manufacturing Company (formerly Team Sourcing). Annual turnover is ~$750M, with a $1B export target by 2026.
@@ -50,14 +52,10 @@ export const handleBotResponse = action({
       { conversationId: args.conversationId },
     );
 
-    const formattedMessages: Array<{ role: string; content: string; name?: string }> = [
-      {
-        role: "system",
-        name: "Alex",
-        content: SYSTEM_PROMPT,
-      },
+    const formattedMessages = [
+      { role: "system", content: SYSTEM_PROMPT },
       ...messages.map((msg) => ({
-        role: msg.sender === "bot" ? "assistant" as const : "user" as const,
+        role: msg.sender === "bot" ? "assistant" : "user",
         content: msg.content,
       })),
     ];
@@ -72,38 +70,74 @@ export const handleBotResponse = action({
       return;
     }
 
-    const response = await fetch("https://api.minimax.io/v1/text/chatcompletion_v2", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${apiKey}`,
-      },
-      body: JSON.stringify({
-        model: "MiniMax-M1",
-        messages: formattedMessages,
-        temperature: 0.8,
-        max_completion_tokens: 512,
-      }),
-    });
-
-    if (!response.ok) {
-      const errText = await response.text();
-      console.error("MiniMax API failed:", response.status, errText);
-      await ctx.runMutation(api.chat.saveBotResponse, {
-        conversationId: args.conversationId,
-        content: "I'm having a little trouble connecting right now — but our team will reach out to you soon!",
+    try {
+      const response = await fetch("https://api.minimax.io/v1/text/chatcompletion_v2", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${apiKey}`,
+        },
+        body: JSON.stringify({
+          model: "MiniMax-M1",
+          messages: formattedMessages,
+          temperature: 0.8,
+          max_completion_tokens: 512,
+        }),
       });
-      return;
+
+      const data = await response.json();
+
+      // MiniMax returns 200 even on errors — check base_resp
+      if (data.base_resp && data.base_resp.status_code !== 0) {
+        console.error("MiniMax API error:", data.base_resp.status_code, data.base_resp.status_msg);
+        // Fall through to fallback
+      } else if (data.choices?.[0]?.message?.content) {
+        await ctx.runMutation(api.chat.saveBotResponse, {
+          conversationId: args.conversationId,
+          content: data.choices[0].message.content,
+        });
+        return;
+      }
+    } catch (err) {
+      console.error("MiniMax fetch error:", err);
     }
 
-    const data = await response.json();
-    const botText =
-      data.choices?.[0]?.message?.content ||
-      "I'm having a little trouble connecting right now — but our team will reach out to you soon!";
+    // Fallback: use a free model via OpenRouter
+    try {
+      const fallbackResponse = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer ",
+          "HTTP-Referer": "https://teambd.com",
+          "X-Title": "Team Group BD Concierge",
+        },
+        body: JSON.stringify({
+          model: "google/gemini-2.0-flash-exp:free",
+          messages: formattedMessages,
+          max_tokens: 400,
+          temperature: 0.8,
+        }),
+      });
 
+      const fallbackData = await fallbackResponse.json();
+      const fallbackText = fallbackData.choices?.[0]?.message?.content;
+
+      if (fallbackText) {
+        await ctx.runMutation(api.chat.saveBotResponse, {
+          conversationId: args.conversationId,
+          content: fallbackText,
+        });
+        return;
+      }
+    } catch (err2) {
+      console.error("Fallback API error:", err2);
+    }
+
+    // Last resort fallback
     await ctx.runMutation(api.chat.saveBotResponse, {
       conversationId: args.conversationId,
-      content: botText,
+      content: "Hey! Thanks for reaching out. Our team is on it — we'll get back to you within 24 hours. If you'd like to speed things up, drop your email or WhatsApp number and we'll connect directly!",
     });
   },
 });

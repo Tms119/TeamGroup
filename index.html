@@ -594,26 +594,54 @@
       .journey-caption p{max-width:32ch}
       .journey-meta{font-size:.48rem;letter-spacing:.12em}
     }
-    .concierge-launcher{position:fixed;right:24px;bottom:24px;width:58px;height:58px;border:1px solid rgba(255,255,255,.28);border-radius:50%;background:var(--red);color:#fff;z-index:9200;display:grid;place-items:center;box-shadow:0 12px 32px rgba(0,0,0,.28);cursor:pointer;transition:transform .3s var(--expo),box-shadow .3s}
-    .concierge-launcher:hover,.concierge-launcher:focus-visible{transform:translateY(-4px) scale(1.04);box-shadow:0 18px 42px rgba(212,43,53,.4);outline:none}
-    .concierge-mark{width:22px;height:22px;background:#fff;clip-path:polygon(50% 0,0 100%,100% 100%);position:relative}
-    .concierge-mark::after{content:'';position:absolute;left:8px;bottom:4px;width:6px;height:2px;background:var(--red)}
-    .concierge-pulse{position:absolute;inset:-7px;border:1px solid rgba(212,43,53,.45);border-radius:50%;animation:conciergePulse 2.4s ease-out infinite;pointer-events:none}
-    @keyframes conciergePulse{0%{opacity:.7;transform:scale(.8)}80%,100%{opacity:0;transform:scale(1.25)}}
-    .concierge-panel{position:fixed;right:24px;bottom:94px;width:min(372px,calc(100vw - 48px));max-height:min(620px,calc(100vh - 128px));background:#101820;color:#fff;border:1px solid rgba(255,255,255,.14);border-radius:12px;z-index:9200;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 24px 70px rgba(0,0,0,.38);opacity:0;visibility:hidden;transform:translateY(16px) scale(.98);transform-origin:bottom right;transition:opacity .28s ease,transform .28s var(--expo),visibility .28s}
+    .concierge-launcher{position:fixed;right:24px;bottom:24px;width:62px;height:62px;border:none;border-radius:50%;background:linear-gradient(135deg,#D42B35 0%,#ff5c66 100%);color:#fff;z-index:9200;display:grid;place-items:center;box-shadow:0 8px 32px rgba(212,43,53,.35),0 2px 8px rgba(0,0,0,.2);cursor:pointer;transition:transform .35s cubic-bezier(.34,1.56,.64,1),box-shadow .35s}
+    .concierge-launcher:hover,.concierge-launcher:focus-visible{transform:translateY(-3px) scale(1.08);box-shadow:0 16px 48px rgba(212,43,53,.5),0 4px 12px rgba(0,0,0,.25);outline:none}
+    .concierge-launcher svg{width:26px;height:26px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+    .concierge-pulse{position:absolute;inset:-6px;border:2px solid rgba(212,43,53,.4);border-radius:50%;animation:conciergePulse 2.8s ease-out infinite;pointer-events:none}
+    @keyframes conciergePulse{0%{opacity:.6;transform:scale(.85)}70%{opacity:0;transform:scale(1.3)}100%{opacity:0;transform:scale(1.3)}}
+    .concierge-panel{position:fixed;right:24px;bottom:100px;width:min(400px,calc(100vw - 40px));max-height:min(640px,calc(100vh - 140px));background:rgba(12,18,28,.92);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);color:#fff;border:1px solid rgba(255,255,255,.1);border-radius:20px;z-index:9200;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,.45),0 0 0 1px rgba(255,255,255,.05) inset;opacity:0;visibility:hidden;transform:translateY(20px) scale(.96);transform-origin:bottom right;transition:opacity .32s ease,transform .32s cubic-bezier(.16,1,.3,1),visibility .32s}
     .concierge-panel.open{opacity:1;visibility:visible;transform:none}
-    .concierge-header{display:flex;align-items:center;justify-content:space-between;padding:18px 18px 16px;border-bottom:1px solid rgba(255,255,255,.09);background:linear-gradient(135deg,#182431,#101820)}
-    .concierge-title{display:flex;align-items:center;gap:10px;font-size:.86rem;font-weight:600;letter-spacing:.04em}
-    .concierge-title .concierge-mark{width:14px;height:14px}.concierge-title .concierge-mark::after{left:5px;bottom:2px;width:4px;height:1px}
-    .concierge-status{font-family:'Space Mono',monospace;font-size:.5rem;letter-spacing:.13em;text-transform:uppercase;color:#ff8a90;display:flex;align-items:center;gap:6px}
-    .concierge-status::before{content:'';width:5px;height:5px;border-radius:50%;background:#ff6b74;box-shadow:0 0 8px #ff6b74}
-    .concierge-close{width:32px;height:32px;color:rgba(255,255,255,.62);font-size:1.25rem;cursor:pointer;border-radius:50%}.concierge-close:hover,.concierge-close:focus-visible{background:rgba(255,255,255,.08);color:#fff;outline:none}
-    .concierge-messages{display:flex;flex-direction:column;gap:12px;padding:18px;overflow-y:auto;min-height:190px}
-    .concierge-message{max-width:86%;padding:11px 13px;border-radius:9px;font-size:.78rem;line-height:1.55;color:rgba(255,255,255,.82);background:rgba(255,255,255,.07)}
-    .concierge-message.user{align-self:flex-end;background:var(--red);color:#fff}.concierge-message a{color:#ff9da1;text-decoration:underline;text-underline-offset:3px}
-    .concierge-quick{display:flex;flex-wrap:wrap;gap:7px;padding:0 18px 14px}.concierge-quick button{border:1px solid rgba(255,255,255,.17);border-radius:20px;padding:8px 11px;color:rgba(255,255,255,.74);font-size:.68rem;cursor:pointer;background:transparent}.concierge-quick button:hover,.concierge-quick button:focus-visible{border-color:#ff6b74;color:#fff;outline:none}
-    .concierge-form{display:flex;gap:8px;padding:12px 14px;border-top:1px solid rgba(255,255,255,.09);background:#0c131a}.concierge-form input{min-width:0;flex:1;border:1px solid rgba(255,255,255,.15);border-radius:5px;padding:11px 12px;background:rgba(255,255,255,.06);color:#fff;font:inherit;font-size:.76rem}.concierge-form input:focus{outline:2px solid rgba(255,107,116,.7);outline-offset:1px}.concierge-form button{width:42px;border-radius:5px;background:var(--red);color:#fff;font-size:1.05rem;cursor:pointer}.concierge-form button:hover,.concierge-form button:focus-visible{background:#ee4a54;outline:none}
-    @media(max-width:700px){.concierge-launcher{right:16px;bottom:16px;width:54px;height:54px}.concierge-panel{right:12px;bottom:82px;width:calc(100vw - 24px);max-height:calc(100vh - 104px)}}
+    .concierge-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid rgba(255,255,255,.07);background:linear-gradient(135deg,rgba(22,34,48,.95),rgba(12,18,28,.95))}
+    .concierge-header-left{display:flex;align-items:center;gap:12px}
+    .concierge-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#D42B35,#ff5c66);display:grid;place-items:center;font-size:.75rem;font-weight:700;letter-spacing:.04em;flex-shrink:0;box-shadow:0 2px 8px rgba(212,43,53,.3)}
+    .concierge-header-info{display:flex;flex-direction:column;gap:2px}
+    .concierge-title{font-size:.88rem;font-weight:600;letter-spacing:.02em;color:#fff}
+    .concierge-status{font-family:'Space Mono',monospace;font-size:.52rem;letter-spacing:.14em;text-transform:uppercase;color:#4ade80;display:flex;align-items:center;gap:6px}
+    .concierge-status::before{content:'';width:6px;height:6px;border-radius:50%;background:#4ade80;box-shadow:0 0 8px rgba(74,222,128,.6);animation:statusPulse 2s ease-in-out infinite}
+    @keyframes statusPulse{0%,100%{opacity:1}50%{opacity:.5}}
+    .concierge-header-actions{display:flex;align-items:center;gap:4px}
+    .concierge-lang-select{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:8px;color:rgba(255,255,255,.7);font-size:.62rem;padding:4px 6px;cursor:pointer;font-family:'Space Mono',monospace;letter-spacing:.05em;transition:border-color .2s,color .2s;-webkit-appearance:none;appearance:none}
+    .concierge-lang-select:hover,.concierge-lang-select:focus{border-color:rgba(212,43,53,.5);color:#fff;outline:none}
+    .concierge-close{width:32px;height:32px;color:rgba(255,255,255,.5);font-size:1.1rem;cursor:pointer;border-radius:8px;display:grid;place-items:center;transition:background .2s,color .2s}.concierge-close:hover,.concierge-close:focus-visible{background:rgba(255,255,255,.08);color:#fff;outline:none}
+    .concierge-messages{display:flex;flex-direction:column;gap:16px;padding:20px;overflow-y:auto;flex:1;min-height:220px;scroll-behavior:smooth}
+    .concierge-messages::-webkit-scrollbar{width:4px}.concierge-messages::-webkit-scrollbar-track{background:transparent}.concierge-messages::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:4px}
+    .concierge-msg-row{display:flex;gap:8px;align-items:flex-end;animation:msgSlide .35s cubic-bezier(.16,1,.3,1) both}
+    .concierge-msg-row.user{flex-direction:row-reverse}
+    @keyframes msgSlide{from{opacity:0;transform:translateY(8px)}}
+    .concierge-msg-avatar{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#D42B35,#ff5c66);display:grid;place-items:center;font-size:.5rem;font-weight:700;flex-shrink:0;margin-bottom:2px}
+    .concierge-message{max-width:82%;padding:12px 16px;border-radius:16px 16px 16px 4px;font-size:.8rem;line-height:1.6;color:rgba(255,255,255,.88);background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.05);word-wrap:break-word}
+    .concierge-msg-row.user .concierge-message{border-radius:16px 16px 4px 16px;background:linear-gradient(135deg,#D42B35,#c92430);color:#fff;border:none}
+    .concierge-message a{color:#ff9da1;text-decoration:underline;text-underline-offset:3px}
+    .concierge-msg-row.user .concierge-message a{color:rgba(255,255,255,.85)}
+    .concierge-msg-time{font-size:.48rem;color:rgba(255,255,255,.25);margin-top:4px;font-family:'Space Mono',monospace;letter-spacing:.05em}
+    .concierge-msg-row.user .concierge-msg-time{text-align:right}
+    .concierge-typing{display:flex;gap:4px;padding:12px 16px;align-items:center}
+    .concierge-typing span{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.3);animation:typingBounce 1.4s ease-in-out infinite}
+    .concierge-typing span:nth-child(2){animation-delay:.2s}
+    .concierge-typing span:nth-child(3){animation-delay:.4s}
+    @keyframes typingBounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-6px)}}
+    .concierge-quick{display:flex;flex-wrap:wrap;gap:6px;padding:0 20px 16px}
+    .concierge-quick button{border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:8px 14px;color:rgba(255,255,255,.65);font-size:.68rem;cursor:pointer;background:rgba(255,255,255,.04);transition:all .25s ease;backdrop-filter:blur(4px)}
+    .concierge-quick button:hover,.concierge-quick button:focus-visible{border-color:rgba(212,43,53,.5);color:#fff;background:rgba(212,43,53,.12);outline:none;transform:translateY(-1px)}
+    .concierge-form{display:flex;gap:8px;padding:14px 16px;border-top:1px solid rgba(255,255,255,.07);background:rgba(8,12,18,.6)}
+    .concierge-form input{min-width:0;flex:1;border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:12px 16px;background:rgba(255,255,255,.05);color:#fff;font:inherit;font-size:.78rem;transition:border-color .2s,background .2s}
+    .concierge-form input::placeholder{color:rgba(255,255,255,.3)}
+    .concierge-form input:focus{outline:none;border-color:rgba(212,43,53,.5);background:rgba(255,255,255,.07)}
+    .concierge-form button[type="submit"]{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,#D42B35,#ff5c66);color:#fff;font-size:1rem;cursor:pointer;display:grid;place-items:center;transition:transform .2s,box-shadow .2s;border:none}
+    .concierge-form button[type="submit"]:hover,.concierge-form button[type="submit"]:focus-visible{transform:scale(1.05);box-shadow:0 4px 16px rgba(212,43,53,.4);outline:none}
+    .concierge-form button[type="submit"]:active{transform:scale(.95)}
+    .concierge-powered{text-align:center;padding:6px 0;font-size:.48rem;color:rgba(255,255,255,.2);letter-spacing:.08em;font-family:'Space Mono',monospace}
+    @media(max-width:700px){.concierge-launcher{right:16px;bottom:16px;width:56px;height:56px}.concierge-panel{right:0;bottom:0;width:100vw;max-height:100vh;border-radius:0;border:none}}
     @media(max-width:768px){
       .tl-item,.news-card.from-left,.news-card.from-right,.news-card.from-below,#contact-top,.d-card-dark,.d-card-light,.careers-sub,.ch-div-sub,.ch-div-title,.ch-div-line,.ch-div-mark{opacity:1;transform:none}
       .ifp-content{opacity:1;transform:none}
@@ -1220,25 +1248,42 @@
 
 <!-- TEAM Concierge -->
 <button class="concierge-launcher" id="concierge-launcher" type="button" aria-label="Open TEAM Concierge" aria-expanded="false" aria-controls="concierge-panel">
-  <span class="concierge-mark" aria-hidden="true"></span><span class="concierge-pulse" aria-hidden="true"></span>
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+  <span class="concierge-pulse" aria-hidden="true"></span>
 </button>
 <aside class="concierge-panel" id="concierge-panel" aria-label="TEAM Concierge" aria-hidden="true">
   <div class="concierge-header">
-    <div><div class="concierge-title"><span class="concierge-mark" aria-hidden="true"></span>TEAM Concierge</div><div class="concierge-status">Available for inquiries</div></div>
-    <button class="concierge-close" id="concierge-close" type="button" aria-label="Close TEAM Concierge">×</button>
+    <div class="concierge-header-left">
+      <div class="concierge-avatar">A</div>
+      <div class="concierge-header-info">
+        <div class="concierge-title">Alex · TEAM Group</div>
+        <div class="concierge-status">Online now</div>
+      </div>
+    </div>
+    <div class="concierge-header-actions">
+      <select class="concierge-lang-select" id="concierge-lang" aria-label="Language">
+        <option value="en">EN</option>
+        <option value="bn">বাং</option>
+        <option value="fr">FR</option>
+        <option value="es">ES</option>
+      </select>
+      <button class="concierge-close" id="concierge-close" type="button" aria-label="Close">✕</button>
+    </div>
   </div>
-  <div class="concierge-messages" id="concierge-messages" aria-live="polite">
-    <div class="concierge-message">Hello. I can help you find the right TEAM Group conversation.</div>
-  </div>
-  <div class="concierge-quick" aria-label="Suggested questions">
-    <button type="button" data-question="What can TEAM manufacture?">Manufacturing</button>
-    <button type="button" data-question="Where can I contact the team?">Contact</button>
-    <button type="button" data-question="How can I work with TEAM?">Partner with us</button>
+  <div class="concierge-messages" id="concierge-messages" aria-live="polite"></div>
+  <div class="concierge-quick" id="concierge-quick" aria-label="Suggested questions">
+    <button type="button" data-question="What can TEAM manufacture?">🏭 Manufacturing</button>
+    <button type="button" data-question="I'd like to source apparel">👔 Source apparel</button>
+    <button type="button" data-question="Tell me about your certifications">🌿 Certifications</button>
+    <button type="button" data-question="How can I partner with TEAM?">🤝 Partner with us</button>
   </div>
   <form class="concierge-form" id="concierge-form">
-    <input id="concierge-input" type="text" placeholder="Ask a question..." autocomplete="off" aria-label="Ask TEAM Concierge a question"/>
-    <button type="submit" aria-label="Send question">↑</button>
+    <input id="concierge-input" type="text" placeholder="Type your message..." autocomplete="off" aria-label="Type a message"/>
+    <button type="submit" aria-label="Send message">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+    </button>
   </form>
+  <div class="concierge-powered">TEAM GROUP BD · EXPORT CONCIERGE</div>
 </aside>
 
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
@@ -1985,31 +2030,134 @@ const conciergeClose = document.getElementById('concierge-close');
 const conciergeForm = document.getElementById('concierge-form');
 const conciergeInput = document.getElementById('concierge-input');
 const conciergeMessages = document.getElementById('concierge-messages');
+const conciergeQuick = document.getElementById('concierge-quick');
+const conciergeLang = document.getElementById('concierge-lang');
+
 let sessionId = localStorage.getItem("team_concierge_session");
 if (!sessionId) {
-  sessionId = "session_" + Math.random().toString(36).substring(2);
+  sessionId = "session_" + Math.random().toString(36).substring(2) + Date.now().toString(36);
   localStorage.setItem("team_concierge_session", sessionId);
 }
 
+const GREETINGS = {
+  en: "Hey there! 👋 I'm Alex from Team Group's export team. What can I help you with today?",
+  bn: "হ্যালো! 👋 আমি Alex, Team Group-এর এক্সপোর্ট টিম থেকে। আজ আপনাকে কীভাবে সাহায্য করতে পারি?",
+  fr: "Bonjour ! 👋 Je suis Alex de l'équipe export de Team Group. Comment puis-je vous aider aujourd'hui ?",
+  es: "¡Hola! 👋 Soy Alex del equipo de exportación de Team Group. ¿En qué puedo ayudarte hoy?"
+};
+
+const PLACEHOLDERS = {
+  en: "Type your message...",
+  bn: "আপনার বার্তা লিখুন...",
+  fr: "Tapez votre message...",
+  es: "Escribe tu mensaje..."
+};
+
+let currentLang = localStorage.getItem("team_concierge_lang") || "en";
+if (conciergeLang) conciergeLang.value = currentLang;
+
 function toggleConcierge(open){
-  conciergePanel.classList.toggle('open', open); conciergePanel.setAttribute('aria-hidden', String(!open)); conciergeLauncher.setAttribute('aria-expanded', String(open));
-  if(open) setTimeout(()=>conciergeInput.focus(), 180);
+  conciergePanel.classList.toggle('open', open);
+  conciergePanel.setAttribute('aria-hidden', String(!open));
+  conciergeLauncher.setAttribute('aria-expanded', String(open));
+  if(open) setTimeout(()=>conciergeInput.focus(), 200);
 }
+
+function formatTime(date) {
+  return new Date(date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+}
+
+function createMsgRow(content, isUser, timestamp) {
+  const row = document.createElement('div');
+  row.className = `concierge-msg-row${isUser ? ' user' : ''}`;
+
+  if (!isUser) {
+    const avatar = document.createElement('div');
+    avatar.className = 'concierge-msg-avatar';
+    avatar.textContent = 'A';
+    row.appendChild(avatar);
+  }
+
+  const col = document.createElement('div');
+  const msg = document.createElement('div');
+  msg.className = 'concierge-message';
+  msg.textContent = content;
+  col.appendChild(msg);
+
+  if (timestamp) {
+    const time = document.createElement('div');
+    time.className = 'concierge-msg-time';
+    time.textContent = formatTime(timestamp);
+    col.appendChild(time);
+  }
+
+  row.appendChild(col);
+  return row;
+}
+
+function showTypingIndicator() {
+  const existing = conciergeMessages.querySelector('.concierge-typing-row');
+  if (existing) return;
+  const row = document.createElement('div');
+  row.className = 'concierge-msg-row concierge-typing-row';
+  const avatar = document.createElement('div');
+  avatar.className = 'concierge-msg-avatar';
+  avatar.textContent = 'A';
+  row.appendChild(avatar);
+  const typing = document.createElement('div');
+  typing.className = 'concierge-message';
+  typing.innerHTML = '<div class="concierge-typing"><span></span><span></span><span></span></div>';
+  row.appendChild(typing);
+  conciergeMessages.appendChild(row);
+  conciergeMessages.scrollTop = conciergeMessages.scrollHeight;
+}
+
+function hideTypingIndicator() {
+  const el = conciergeMessages.querySelector('.concierge-typing-row');
+  if (el) el.remove();
+}
+
+let lastMsgCount = 0;
+let isWaitingForBot = false;
 
 function renderMessages(messages) {
   conciergeMessages.innerHTML = '';
-  const initial = document.createElement('div');
-  initial.className = 'concierge-message';
-  initial.innerHTML = 'Hello! I am Alex from the Team Group BD support team. How can I help you today?';
-  conciergeMessages.appendChild(initial);
-  
+
+  // greeting
+  conciergeMessages.appendChild(createMsgRow(GREETINGS[currentLang] || GREETINGS.en, false, null));
+
   messages.forEach(msg => {
-    const message = document.createElement('div');
-    message.className = `concierge-message${msg.sender === 'visitor' ? ' user' : ''}`;
-    message.innerHTML = msg.content;
-    conciergeMessages.appendChild(message);
+    conciergeMessages.appendChild(createMsgRow(msg.content, msg.sender === 'visitor', msg._creationTime));
   });
+
+  // If we're waiting and the last message is still from the visitor, show typing
+  const lastMsg = messages[messages.length - 1];
+  if (isWaitingForBot && lastMsg && lastMsg.sender === 'visitor') {
+    showTypingIndicator();
+  } else {
+    isWaitingForBot = false;
+    hideTypingIndicator();
+  }
+
+  // Hide quick replies once conversation has messages
+  if (messages.length > 0 && conciergeQuick) {
+    conciergeQuick.style.display = 'none';
+  }
+
   conciergeMessages.scrollTop = conciergeMessages.scrollHeight;
+  lastMsgCount = messages.length;
+}
+
+if (conciergeLang) {
+  conciergeLang.addEventListener('change', () => {
+    currentLang = conciergeLang.value;
+    localStorage.setItem("team_concierge_lang", currentLang);
+    conciergeInput.placeholder = PLACEHOLDERS[currentLang] || PLACEHOLDERS.en;
+    // Re-render greeting
+    const greeting = conciergeMessages.querySelector('.concierge-msg-row:first-child .concierge-message');
+    if (greeting) greeting.textContent = GREETINGS[currentLang] || GREETINGS.en;
+  });
+  conciergeInput.placeholder = PLACEHOLDERS[currentLang] || PLACEHOLDERS.en;
 }
 
 import("https://esm.sh/convex@1.14.3/browser").then(({ ConvexHttpClient }) => {
@@ -2021,44 +2169,38 @@ import("https://esm.sh/convex@1.14.3/browser").then(({ ConvexHttpClient }) => {
     }).catch(console.error);
   }
 
-  // Poll every 3 seconds for new messages
-  setInterval(pollMessages, 3000);
+  setInterval(pollMessages, 2500);
   pollMessages();
 
-  function answerConcierge(question){
-    convexClient.mutation("chat:sendMessage", { sessionId, content: question }).then(() => {
-      pollMessages();
+  function sendUserMessage(text) {
+    isWaitingForBot = true;
+    // Optimistic UI
+    conciergeMessages.appendChild(createMsgRow(text, true, Date.now()));
+    showTypingIndicator();
+    conciergeMessages.scrollTop = conciergeMessages.scrollHeight;
+    if (conciergeQuick) conciergeQuick.style.display = 'none';
+
+    convexClient.mutation("chat:sendMessage", { sessionId, content: text }).then(() => {
+      setTimeout(pollMessages, 800);
     }).catch(console.error);
   }
 
   if(conciergeLauncher){
     conciergeLauncher.addEventListener('click',()=>toggleConcierge(!conciergePanel.classList.contains('open')));
     conciergeClose.addEventListener('click',()=>toggleConcierge(false));
-    conciergeForm.addEventListener('submit',event=>{
-      event.preventDefault(); 
-      const question = conciergeInput.value.trim(); 
-      if(!question) return; 
-      
-      // Opt-in UI update
-      const message = document.createElement('div');
-      message.className = 'concierge-message user';
-      message.innerHTML = question;
-      conciergeMessages.appendChild(message);
-      conciergeMessages.scrollTop = conciergeMessages.scrollHeight;
-      
-      conciergeInput.value=''; 
-      answerConcierge(question);
+    conciergeForm.addEventListener('submit', event => {
+      event.preventDefault();
+      const text = conciergeInput.value.trim();
+      if(!text) return;
+      conciergeInput.value = '';
+      sendUserMessage(text);
     });
-    document.querySelectorAll('[data-question]').forEach(button=>button.addEventListener('click',()=>{
-      const question=button.dataset.question; 
-      const message = document.createElement('div');
-      message.className = 'concierge-message user';
-      message.innerHTML = question;
-      conciergeMessages.appendChild(message);
-      conciergeMessages.scrollTop = conciergeMessages.scrollHeight;
-      answerConcierge(question);
+    document.querySelectorAll('[data-question]').forEach(button => button.addEventListener('click', () => {
+      sendUserMessage(button.dataset.question);
     }));
-    document.addEventListener('keydown',event=>{if(event.key==='Escape' && conciergePanel.classList.contains('open')) toggleConcierge(false);});
+    document.addEventListener('keydown', event => {
+      if(event.key === 'Escape' && conciergePanel.classList.contains('open')) toggleConcierge(false);
+    });
   }
 }).catch(console.error);
 
