@@ -346,6 +346,25 @@
     .biz-cta{display:inline-flex;align-items:center;gap:10px;font-size:.75rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--white);border-bottom:1px solid rgba(255,255,255,.2);padding-bottom:4px;transition:border-color .3s,gap .3s}
     .biz-cta:hover{border-color:var(--red);gap:16px}
     .biz-cta-line{width:20px;height:1px;background:var(--red)}
+    .route-spine{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);height:58%;z-index:12;display:flex;flex-direction:column;justify-content:space-between;align-items:center;pointer-events:none}
+    .route-spine::before{content:'';position:absolute;top:0;bottom:0;width:1px;background:rgba(255,255,255,.18)}
+    .route-node{position:relative;display:flex;align-items:center;gap:10px;min-width:110px;color:rgba(255,255,255,.4);font-family:'Space Mono',monospace;font-size:.5rem;letter-spacing:.16em;text-transform:uppercase;transition:color .35s,transform .35s}
+    .route-node:nth-child(odd){transform:translateX(-72px);text-align:right;justify-content:flex-end}
+    .route-node:nth-child(even){transform:translateX(72px)}
+    .route-node::before{content:'';width:9px;height:9px;border:1px solid rgba(255,255,255,.4);border-radius:50%;background:var(--navy);transition:background .35s,border-color .35s,box-shadow .35s;order:2}
+    .route-node:nth-child(even)::before{order:-1}
+    .route-node.active{color:#fff}
+    .route-node.active::before{background:var(--red);border-color:var(--red);box-shadow:0 0 0 6px rgba(212,43,53,.14),0 0 18px rgba(212,43,53,.6)}
+    .biz-route-meta{font-family:'Space Mono',monospace;font-size:.52rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.36);margin-bottom:20px}
+    .biz-route-meta strong{color:var(--red);font-weight:400}
+    .deck-header .sec-label-text{color:rgba(255,255,255,.55)}
+    .deck-headline{max-width:470px;font-family:'DM Serif Display',serif;font-size:clamp(2rem,4.2vw,4.4rem);font-weight:400;line-height:1.02;letter-spacing:-.02em}
+    .deck-headline em{color:var(--red);font-style:italic}
+    @media(max-width:768px){
+      .route-spine{display:none}
+      .deck-headline{font-size:2.2rem}
+      .biz-route-meta{margin-bottom:14px}
+    }
 
     /* ─── IMPACT (scroll-pinned) ───────────────────── */
     #impact-container{height:440vh;position:relative}
@@ -886,17 +905,26 @@
   <div id="deck-sticky">
     <div class="deck-header">
       <div class="sec-label"><div class="sec-dot"></div><span class="sec-label-text">Our Portfolio</span></div>
-      <div class="deck-headline">Six Industries. One Group.</div>
+      <div class="deck-headline">Many ways forward.<br><em>One connected group.</em></div>
     </div>
     <div class="deck-counter"><span class="current" id="deck-current">01</span> / 06</div>
     <div class="deck-dots" id="deck-dots">
       <div class="deck-dot active"></div><div class="deck-dot"></div><div class="deck-dot"></div>
       <div class="deck-dot"></div><div class="deck-dot"></div><div class="deck-dot"></div>
     </div>
+    <div class="route-spine" aria-hidden="true">
+      <div class="route-node active">Material</div>
+      <div class="route-node">Making</div>
+      <div class="route-node">Health</div>
+      <div class="route-node">Technology</div>
+      <div class="route-node">Place</div>
+      <div class="route-node">Reach</div>
+    </div>
     <!-- Card 1 -->
     <div class="biz-full-card active" data-card="0">
       <div class="biz-img-panel"><img src="hero_factory_1788955775664.jpg" alt="Team Manufacturing" loading="eager"/><div class="biz-img-overlay"></div></div>
       <div class="biz-text-panel"><div class="biz-accent" style="background:#D42B35"></div>
+        <div class="biz-route-meta"><strong>01 / 06</strong> · DHAKA · ORIGIN</div>
         <div class="biz-idx"><span class="biz-idx-line"></span>01 / 06</div>
         <div class="biz-industry-tag">RMG / Textiles</div>
         <h2 class="biz-name">Team Manufacturing Co. Ltd.</h2>
@@ -908,6 +936,7 @@
     <div class="biz-full-card" data-card="1">
       <div class="biz-img-panel"><img src="business_fashion_1788955858155.jpg" alt="Twelve Clothing" loading="lazy"/><div class="biz-img-overlay"></div></div>
       <div class="biz-text-panel"><div class="biz-accent" style="background:#C4922A"></div>
+        <div class="biz-route-meta"><strong>02 / 06</strong> · BANGLADESH · REACH</div>
         <div class="biz-idx"><span class="biz-idx-line"></span>02 / 06</div>
         <div class="biz-industry-tag">Fashion Retail</div>
         <h2 class="biz-name">Twelve Clothing Ltd.</h2>
@@ -919,6 +948,7 @@
     <div class="biz-full-card" data-card="2">
       <div class="biz-img-panel"><img src="business_pharma_1788955873724.jpg" alt="Team Pharmaceuticals" loading="lazy"/><div class="biz-img-overlay"></div></div>
       <div class="biz-text-panel"><div class="biz-accent" style="background:#1A6985"></div>
+        <div class="biz-route-meta"><strong>03 / 06</strong> · GMP · HEALTH</div>
         <div class="biz-idx"><span class="biz-idx-line"></span>03 / 06</div>
         <div class="biz-industry-tag">Pharmaceuticals</div>
         <h2 class="biz-name">Team Pharmaceuticals Ltd.</h2>
@@ -930,6 +960,7 @@
     <div class="biz-full-card" data-card="3">
       <div class="biz-img-panel"><img src="business_tech_1788955887876.jpg" alt="Intellier" loading="lazy"/><div class="biz-img-overlay"></div></div>
       <div class="biz-text-panel"><div class="biz-accent" style="background:#5B21B6"></div>
+        <div class="biz-route-meta"><strong>04 / 06</strong> · DIGITAL · SYSTEMS</div>
         <div class="biz-idx"><span class="biz-idx-line"></span>04 / 06</div>
         <div class="biz-industry-tag">Technology &amp; IT</div>
         <h2 class="biz-name">Intellier Ltd.</h2>
@@ -941,6 +972,7 @@
     <div class="biz-full-card" data-card="4">
       <div class="biz-img-panel"><img src="business_realestate_1788955902796.jpg" alt="Team Developers" loading="lazy"/><div class="biz-img-overlay"></div></div>
       <div class="biz-text-panel"><div class="biz-accent" style="background:#166534"></div>
+        <div class="biz-route-meta"><strong>05 / 06</strong> · BANGLADESH · PLACE</div>
         <div class="biz-idx"><span class="biz-idx-line"></span>05 / 06</div>
         <div class="biz-industry-tag">Real Estate</div>
         <h2 class="biz-name">Team Developers Ltd.</h2>
@@ -952,6 +984,7 @@
     <div class="biz-full-card" data-card="5">
       <div class="biz-img-panel"><img src="portfolio_overview_1788955797865.jpg" alt="Pharma IMEX" loading="lazy"/><div class="biz-img-overlay"></div></div>
       <div class="biz-text-panel"><div class="biz-accent" style="background:#374151"></div>
+        <div class="biz-route-meta"><strong>06 / 06</strong> · GLOBAL · REACH</div>
         <div class="biz-idx"><span class="biz-idx-line"></span>06 / 06</div>
         <div class="biz-industry-tag">Distribution</div>
         <h2 class="biz-name">Pharma IMEX Ltd.</h2>
@@ -1422,6 +1455,7 @@ function updateStats(){
 const deckCont  = document.getElementById('deck-container');
 const deckCards = document.querySelectorAll('.biz-full-card');
 const deckDots  = document.querySelectorAll('.deck-dot');
+const routeNodes = document.querySelectorAll('.route-node');
 const deckCurEl = document.getElementById('deck-current');
 const NUM_CARDS = 6;
 let lastDeckIdx=-1;
@@ -1430,7 +1464,7 @@ function updateDeck(){
   const rect=deckCont.getBoundingClientRect(), scrollable=deckCont.offsetHeight-window.innerHeight;
   const p=Math.max(0,Math.min(.9999,-rect.top/scrollable));
   const phase=p*NUM_CARDS, activeIdx=Math.min(Math.floor(phase),NUM_CARDS-1), withinPhase=phase-Math.floor(phase);
-  if(activeIdx!==lastDeckIdx){ lastDeckIdx=activeIdx; deckCurEl.textContent=String(activeIdx+1).padStart(2,'0'); deckDots.forEach((d,i)=>d.classList.toggle('active',i===activeIdx)); }
+  if(activeIdx!==lastDeckIdx){ lastDeckIdx=activeIdx; deckCurEl.textContent=String(activeIdx+1).padStart(2,'0'); deckDots.forEach((d,i)=>d.classList.toggle('active',i===activeIdx)); routeNodes.forEach((node,i)=>node.classList.toggle('active',i===activeIdx)); }
   deckCards.forEach((card,i)=>{
     if(i<activeIdx){ card.style.clipPath='inset(0 0 0 100%)'; card.style.opacity='0'; card.style.zIndex='1'; }
     else if(i===activeIdx){
